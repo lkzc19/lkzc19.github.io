@@ -105,5 +105,5 @@ theme: oranges
 deploy:
   type: 'git'
   message: update
-  repo: https://github.com/lkzc19/lkzc19.github.io.git
+  repo: git@github.com:lkzc19/lkzc19.github.io.git
   branch: gh-pages
