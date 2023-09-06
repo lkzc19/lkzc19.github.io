@@ -11,7 +11,7 @@
   
   <title>
     
-      Mac环境配置 
+      Gitee图床 
       
       
       |
@@ -151,19 +151,19 @@
   <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
   <div class="container post-details" id="post-details">
     <div class="post-content">
-      <div class="post-title">Mac环境配置</div>
+      <div class="post-title">Gitee图床</div>
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime mr-10" title="更新时间"></i>
-          2023-07-10 00:45:08
+          2023-09-07 00:48:34
         </span>
         
               <span class="post-tags">
                 <i class="iconfont icon-tags mr-10" title="标签"></i>
                 
                 <span class="span--tag mr-8">
-                  <a href="/tags/mac/" title="mac">
-                    #mac
+                  <a href="/tags/Python/" title="Python">
+                    #Python
                   </a>
                 </span>
                 
@@ -171,41 +171,34 @@
           
       </div>
       <div class="markdown-body">
-        <h1 id="0-前言"><a href="#0-前言" class="headerlink" title="0 前言"></a>0 前言</h1><p>Mac默认使用的shell是zsh，一般环境变量是直接在<code>.zshrc</code>文件中配置的。但是如果所有的环境变量、别名，或者是自己写的一些脚本都在这个文件中配置，会显得有点乱。在CentOS中，系统级别的环境配置会有一个总的配置文件去读一个目录下所有的配置文件。我也按照这种方式简单的组织了我的环境配置。</p>
-<h1 id="1-正文"><a href="#1-正文" class="headerlink" title="1 正文"></a>1 正文</h1><p>目录结构大致如下</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">~</span><br><span class="line">├──.zshrc</span><br><span class="line">├── profile.d</span><br><span class="line">│   ├── alias.d</span><br><span class="line">│   │   ├── custom.sh</span><br><span class="line">│   │   └── third.sh</span><br><span class="line">│   ├── oh<span class="emphasis">_my_</span>zsh.sh</span><br><span class="line">│   ├── zalias.sh</span><br><span class="line">│   ├── zenv.sh</span><br><span class="line">│   └── ztokens.sh</span><br><span class="line">└── bin</span><br><span class="line"><span class="code">	└── zmdot-sync.sh</span></span><br></pre></td></tr></table></figure>
+        <h1 id="0-前言"><a href="#0-前言" class="headerlink" title="0 前言"></a>0 前言</h1><p>写博客，特别是私人博客，图床是必不可少。最常见的是使用 PicGo 配合公有云做图床。但是直接使用别人现成的属实无趣。正好最近需要用到 Python，用 Python 写一个上传图片后可以返回图片链接的工具练练手。图床就选择使用 Gitee。</p>
+<h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><h2 id="Gitee-Open-API"><a href="#Gitee-Open-API" class="headerlink" title="Gitee Open API"></a>Gitee Open API</h2><p>这个工具最大的难点就是如何将图片推送到仓库，且获取到推送上的图片的地址。在翻阅 Gitee 的 open API 后找到一个<a target="_blank" rel="noopener" href="https://gitee.com/api/v5/swagger#/postV5ReposOwnerRepoContentsPath">接口</a>，可以满足这个要求。</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://gitee.com/api/v5/repos/&#123;owner&#125;/&#123;repo&#125;/contents/&#123;path&#125;</span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<p>tree目录使用homebrew安装的tree生成的</p>
-</blockquote>
-<p>模仿CentOS，在<code>.zshrc</code>中遍历<code>profile.d</code>中所有的配置文件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> ~/profile.d/*.sh ; <span class="keyword">do</span></span><br><span class="line">    <span class="keyword">if</span> [ -r <span class="string">&quot;<span class="variable">$i</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$&#123;-#*i&#125;</span>&quot;</span> != <span class="string">&quot;$-&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">            . <span class="string">&quot;<span class="variable">$i</span>&quot;</span></span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            . <span class="string">&quot;<span class="variable">$i</span>&quot;</span> &gt;/dev/null 2&gt;&amp;1</span><br><span class="line">        <span class="keyword">fi</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<p>唯一需要解释的参数就是 <code>path</code> ，是指在仓库中的地址。</p>
+<p>接口返回的数据 <code>download_url</code> 就是图片的路径。</p>
+<h2 id="access-token-获取"><a href="#access-token-获取" class="headerlink" title="access_token 获取"></a>access_token 获取</h2><p><img src="https://gitee.com/lkzc19/zimg/raw/master/drinkice/2023-09-07-00-22-05.png" alt="access_token获取"></p>
+<p>生成令牌时按需给权限即可。拿到 <code>assess_token</code> 后，可将其配置到环境变量中，如代码分享给别人时，也不会将 <code>assess_token</code> 泄漏。</p>
+<h2 id="码"><a href="#码" class="headerlink" title="码"></a>码</h2><p>代码不是很多，所以就全部放在文章中，没有上传到git上。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="comment"># 入参</span></span><br><span class="line">    parser = argparse.ArgumentParser(description=<span class="string">&#x27;gitee图床工具&#x27;</span>)</span><br><span class="line">    parser.add_argument(<span class="string">&#x27;img&#x27;</span>, <span class="built_in">help</span>=<span class="string">&#x27;图片地址&#x27;</span>)</span><br><span class="line">    args = parser.parse_args()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 读取文件</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(args.img, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> it:</span><br><span class="line">        file = it.read()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 判断是否是图片</span></span><br><span class="line">    _, extension = os.path.splitext(args.img)</span><br><span class="line">    image_extensions = [<span class="string">&#x27;.jpg&#x27;</span>, <span class="string">&#x27;.jpeg&#x27;</span>, <span class="string">&#x27;.png&#x27;</span>, <span class="string">&#x27;.gif&#x27;</span>, <span class="string">&#x27;.bmp&#x27;</span>]</span><br><span class="line">    <span class="keyword">if</span> extension.lower() <span class="keyword">not</span> <span class="keyword">in</span> image_extensions:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;[&#x27;</span> + extension + <span class="string">&#x27;]文件非图片，不能上传&#x27;</span>)</span><br><span class="line">        sys.exit(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 上传到gitee上的文件名 上传的频率不是很高, 使用秒即可</span></span><br><span class="line">    filename = datetime.now().strftime(<span class="string">&quot;%Y-%m-%d-%H-%M-%S&quot;</span>) + extension</span><br><span class="line"></span><br><span class="line">    path_params = &#123;</span><br><span class="line">        <span class="string">&#x27;owner&#x27;</span>: <span class="string">&#x27;lkzc19&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;repo&#x27;</span>: <span class="string">&#x27;zimg&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;path&#x27;</span>: <span class="string">&#x27;drinkice/&#x27;</span> + filename</span><br><span class="line">    &#125;</span><br><span class="line">    body = &#123;</span><br><span class="line">        <span class="string">&#x27;access_token&#x27;</span>: os.environ.get(<span class="string">&#x27;GITEE_ACCESS_TOKEN&#x27;</span>),</span><br><span class="line">        <span class="string">&#x27;content&#x27;</span>: base64.b64encode(file).decode(<span class="string">&#x27;utf-8&#x27;</span>), <span class="comment"># 将图片文件转换为 Base64 编码</span></span><br><span class="line">        <span class="string">&#x27;message&#x27;</span>: <span class="string">&#x27;feat: 上传图片&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment"># https://gitee.com/api/v5/swagger#/postV5ReposOwnerRepoContentsPath</span></span><br><span class="line">    response = requests.post(</span><br><span class="line">        <span class="string">&#x27;https://gitee.com/api/v5/repos/&#123;owner&#125;/&#123;repo&#125;/contents/&#123;path&#125;&#x27;</span>.format_map(path_params),</span><br><span class="line">        json=body</span><br><span class="line">    )</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> response.ok:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;上传失败: &#x27;</span> + response.json()[<span class="string">&#x27;message&#x27;</span>])</span><br><span class="line">        sys.exit(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 成功输出图片地址</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;上传成功&#x27;</span>)</span><br><span class="line">    gitee_img_url = response.json()[<span class="string">&#x27;content&#x27;</span>][<span class="string">&#x27;download_url&#x27;</span>]</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;markdown: \t&#x27;</span> + (<span class="string">&#x27;![](&#123;&#125;)&#x27;</span>.<span class="built_in">format</span>(gitee_img_url)))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;URL: \t\t&#x27;</span> + gitee_img_url)</span><br></pre></td></tr></table></figure>
 
-<p>其中在<code>~/profile.d/zenv.sh</code>配置了平时开发会用到的环境变量，比如Java的环境变量等，平时可能需要多种版本的Java，所以配置了多版本Java，根据需求使用别名<code>jdk8/jdk11</code>做切换。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># JAVA</span></span><br><span class="line">JAVA_HOME_8=<span class="string">&quot;/Library/Java/JavaVirtualMachines/jdk1.8.0_341.jdk/Contents/Home&quot;</span></span><br><span class="line">JAVA_HOME_11=<span class="string">&quot;/Library/Java/JavaVirtualMachines/jdk-11.0.14.jdk/Contents/Home&quot;</span></span><br><span class="line"></span><br><span class="line">JAVA_HOME=<span class="variable">$JAVA_HOME_8</span></span><br><span class="line">PATH=<span class="variable">$PATH</span>:<span class="variable">$JAVA_HOME</span>/bin</span><br><span class="line"><span class="built_in">export</span> JAVA_HOME</span><br><span class="line"><span class="built_in">export</span> PATH</span><br><span class="line"><span class="comment"># 用于切换JDK版本</span></span><br><span class="line"><span class="built_in">alias</span> jdk8=<span class="string">&quot;export JAVA_HOME=<span class="variable">$JAVA_HOME_8</span>&quot;</span></span><br><span class="line"><span class="built_in">alias</span> jdk11=<span class="string">&quot;export JAVA_HOME=<span class="variable">$JAVA_HOME_11</span>&quot;</span></span><br></pre></td></tr></table></figure>
+<p>目前我使用，只是作为本个人站图床使用。所以 <code>path</code> 就写死一个路径，文件名直接用日期时间，保证不重名即可。</p>
+<h2 id="配置使用"><a href="#配置使用" class="headerlink" title="配置使用"></a>配置使用</h2><p>代码写完其实就可以使用。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 zimg.py &lt;图片路径&gt;</span><br></pre></td></tr></table></figure>
 
-<p>在<code>~/profile.d/zalias.sh</code>中配置别名，比较通用的命令别名在这个文件中直接配置，且在该文件中使用与<code>.zshrc</code>文件一样的方法读取其他的文件，做一个别名分组。比如我再分了两个别名文件。</p>
-<p>在<code>third.sh</code>中，设置了第三方软件命令的别名，比如Redis根据配置文件启动。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 存放第三方软件，通常是「学习」用的，平时不会使用的命令的别名</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ElasticSearch</span></span><br><span class="line"><span class="built_in">alias</span> es=<span class="string">&#x27;elasticsearch&#x27;</span></span><br><span class="line"><span class="built_in">alias</span> esp=<span class="string">&#x27;elasticsearch-plugin&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Redis</span></span><br><span class="line"><span class="comment"># redis-server conf</span></span><br><span class="line"><span class="built_in">alias</span> redis-server.conf=<span class="string">&#x27;redis-server /opt/homebrew/etc/redis.conf --color=auto&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>但是为了方便的使用，使用 Shell 脚本将其再封装一层，且将 Shell 脚本配置到环境变量中。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">python3 ~/bin/lib/zimg.py <span class="variable">$1</span></span><br></pre></td></tr></table></figure>
 
-<p>在<code>custom.sh</code>中，我放了一些大佬写的项目，或者自己写的demo的启动命令别名。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 存放平时自己开发，或者是大佬开发的软件的启动命令的别名</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># gitee上大佬做的仿git项目</span></span><br><span class="line"><span class="built_in">alias</span> zit=<span class="string">&#x27;java -jar $HOME/bin/lib/zit-1.0-SNAPSHOT-shaded.jar&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<p><code>ztokens.sh</code>文件中，存放了一些token凭证，提供给一些软件使用，比如Github API Token</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 用于存放一些token，如Github API Token，如：</span></span><br><span class="line"><span class="built_in">export</span> HOMEBREW_GITHUB_API_TOKEN=xxx</span><br></pre></td></tr></table></figure>
-
-<p>像是<code>oh_my_zsh.sh</code>这些文件，就是专门的配置文件了。</p>
-<p><code>~/bin</code>目录下放了一些执行脚本，在<code>zenv.sh</code>中设置好环境变量就可以直接调用了。</p>
-<p>配置文件以上传至<a target="_blank" rel="noopener" href="https://github.com/lkzc19/zmdot">github</a></p>
-<hr>
-<p>关于别名参考<a target="_blank" rel="noopener" href="https://github.com/paulirish/dotfiles/blob/main/.aliases">dotfiles</a>，该仓库还包含了其他许多配置。</p>
+<p>之后就可方便的调用该脚本</p>
+<p><img src="https://gitee.com/lkzc19/zimg/raw/master/drinkice/2023-09-07-00-44-30.png" alt="调用 Shell 脚本"></p>
+<h1 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h1><p>如果上传成功且图片也在Gitee上后，应该是因为仓库<strong>没有公开</strong>，所以导致图片在外界是访问不了的。</p>
 
       </div>
       
         <div class="prev-or-next">
           <div class="post-foot-next">
             
-              <a href="/2023/07/09/hello-world/" target="_self">
+              <a href="/2023/07/09/Mac%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" target="_self">
                 <i class="iconfont icon-chevronleft"></i>
                 <span>上一页</span>
               </a>
@@ -214,15 +207,15 @@
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime mr-10" title="更新时间"></i>
-              2023-07-10 00:45:08
+              2023-09-07 00:48:34
             </span>
             
                   <span class="post-tags">
                     <i class="iconfont icon-tags mr-10" title="标签"></i>
                     
                     <span class="span--tag mr-8">
-                      <a href="/tags/mac/" title="mac">
-                        #mac
+                      <a href="/tags/Python/" title="Python">
+                        #Python
                       </a>
                     </span>
                     
@@ -230,11 +223,6 @@
               
           </div>
           <div class="post-foot-prev">
-            
-              <a href="/2023/09/06/Gitee%E5%9B%BE%E5%BA%8A/" target="_self">
-                <span>下一页</span>
-                <i class="iconfont icon-chevronright"></i>
-              </a>
             
           </div>
         </div>
@@ -248,7 +236,7 @@
     <div class="title">目录</div>
     <div class="catalog-content">
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#0-%E5%89%8D%E8%A8%80"><span class="toc-text">0 前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E6%AD%A3%E6%96%87"><span class="toc-text">1 正文</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#0-%E5%89%8D%E8%A8%80"><span class="toc-text">0 前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Gitee-Open-API"><span class="toc-text">Gitee Open API</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#access-token-%E8%8E%B7%E5%8F%96"><span class="toc-text">access_token 获取</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A0%81"><span class="toc-text">码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8"><span class="toc-text">配置使用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E7%82%B9"><span class="toc-text">注意点</span></a></li></ol>
       
     </div>
   </div>
@@ -534,12 +522,12 @@
       </a>
       <div class="share-content hidden">
         
-          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + Mac%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE + '&url=' + http%3A%2F%2Flkzc19.github.io%2F2023%2F07%2F09%2FMac%25E7%258E%25AF%25E5%25A2%2583%25E9%2585%258D%25E7%25BD%25AE%2F + '" target="_blank" title="Twitter">
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + Gitee%E5%9B%BE%E5%BA%8A + '&url=' + http%3A%2F%2Flkzc19.github.io%2F2023%2F09%2F06%2FGitee%25E5%259B%25BE%25E5%25BA%258A%2F + '" target="_blank" title="Twitter">
             <i class="iconfont icon-twitter"></i>
           </a>
         
         
-          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://lkzc19.github.io/2023/07/09/Mac%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" target="_blank" title="Facebook">
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://lkzc19.github.io/2023/09/06/Gitee%E5%9B%BE%E5%BA%8A/" target="_blank" title="Facebook">
             <i class="iconfont icon-facebooksquare"></i>
           </a>
         
