@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <meta name="author" content="lkzc19" />
+  <meta name="description" content="" />
+  
+  
+  <title>
+    
+      掘金签到脚本 
+      
+      
+      |
+    
+     饮冰室
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.jpg">
+    <link rel="icon" href="/images/favicon.jpg">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.jpg" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">十九君</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">主页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/categories/">
+          <a href="/categories/">分类</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">关于我</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">掘金签到脚本</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="更新时间"></i>
+          2023-09-10 11:24:59
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="标签"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/Python/" title="Python">
+                    #Python
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h1 id="0-前言"><a href="#0-前言" class="headerlink" title="0 前言"></a>0 前言</h1><p>之前在掘金看到了篇文章，使用脚本在掘金签到和抽奖，并且部署在了腾讯云的 Serveless 上的教程。很有意思，借这篇文章再练习 Python 以及学习一下 Mac 的开机延时任务怎么使用。</p>
+<p>本文仅用于学习交流。</p>
+<h1 id="1-正文"><a href="#1-正文" class="headerlink" title="1 正文"></a>1 正文</h1><h2 id="脚本编写"><a href="#脚本编写" class="headerlink" title="脚本编写"></a>脚本编写</h2><p>原先的脚本是用 node 写的，作者已经将相关的接口整理出来了。我按照原先的代码，加上一些新的逻辑写了 python 版本的脚本。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: UTF-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> smtplib</span><br><span class="line"><span class="keyword">from</span> email.mime.text <span class="keyword">import</span> MIMEText</span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line">config = &#123;</span><br><span class="line">    <span class="string">&#x27;baseUrl&#x27;</span>: <span class="string">&#x27;https://api.juejin.cn&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;apiUrl&#x27;</span>: &#123;</span><br><span class="line">        <span class="string">&#x27;getTodayStatus&#x27;</span>: <span class="string">&#x27;/growth_api/v1/get_today_status&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;checkIn&#x27;</span>: <span class="string">&#x27;/growth_api/v1/check_in&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;getLotteryConfig&#x27;</span>: <span class="string">&#x27;/growth_api/v1/lottery_config/get&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;drawLottery&#x27;</span>: <span class="string">&#x27;/growth_api/v1/lottery/draw&#x27;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">&#x27;email&#x27;</span>: &#123;</span><br><span class="line">        <span class="string">&#x27;host&#x27;</span>: <span class="string">&#x27;smtp.sina.com&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;port&#x27;</span>: <span class="number">465</span>,</span><br><span class="line">        <span class="string">&#x27;sender&#x27;</span>: <span class="string">&#x27;steart@sina.com&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;pwd&#x27;</span>: os.environ.get(<span class="string">&#x27;STEART_SINA_PASS&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">init</span>():</span><br><span class="line">    parser = argparse.ArgumentParser()</span><br><span class="line">    parser.add_argument(<span class="string">&#x27;--cookie&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">str</span>, <span class="built_in">help</span>=<span class="string">&#x27;浏览器中获取cookie&#x27;</span>)</span><br><span class="line">    parser.add_argument(<span class="string">&#x27;--receiver&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">str</span>, <span class="built_in">help</span>=<span class="string">&#x27;通知结果的邮箱&#x27;</span>)</span><br><span class="line">    parser.add_argument(<span class="string">&#x27;--debug&#x27;</span>, default=<span class="literal">False</span>, <span class="built_in">type</span>=<span class="built_in">bool</span>, <span class="built_in">help</span>=<span class="string">&#x27;测试&#x27;</span>)</span><br><span class="line">    args = parser.parse_args()</span><br><span class="line"></span><br><span class="line">    headers = &#123;</span><br><span class="line">        <span class="string">&#x27;user-agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;cookie&#x27;</span>: args.cookie</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    config[<span class="string">&#x27;headers&#x27;</span>] = headers</span><br><span class="line">    config[<span class="string">&#x27;email&#x27;</span>][<span class="string">&#x27;receiver&#x27;</span>] = args.receiver</span><br><span class="line"></span><br><span class="line">    config[<span class="string">&#x27;debug&#x27;</span>] = args.debug</span><br><span class="line"></span><br><span class="line">    test()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test</span>():</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> config[<span class="string">&#x27;debug&#x27;</span>]:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;===测试开始===&#x27;</span>)</span><br><span class="line">    send_email()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;===测试结束===&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查询今日是否已经签到</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_today_check_status</span>():</span><br><span class="line">    response = requests.get(config[<span class="string">&#x27;baseUrl&#x27;</span>] + config[<span class="string">&#x27;apiUrl&#x27;</span>][<span class="string">&#x27;getTodayStatus&#x27;</span>], headers=config[<span class="string">&#x27;headers&#x27;</span>])</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;===查询今日是否已经签到: \n&#x27;</span> + <span class="built_in">str</span>(response.json()))</span><br><span class="line">    <span class="keyword">if</span> response.json()[<span class="string">&#x27;err_no&#x27;</span>] != <span class="number">0</span>:</span><br><span class="line">        send_email(<span class="string">&#x27;今日掘金签到查询：失败&#x27;</span>, response.json())</span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="string">&#x27;isError&#x27;</span>: response.json()[<span class="string">&#x27;err_no&#x27;</span>] != <span class="number">0</span>, <span class="string">&#x27;isCheck&#x27;</span>: response.json()[<span class="string">&#x27;data&#x27;</span>]&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 签到</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">check_in</span>():</span><br><span class="line">    result = get_today_check_status()</span><br><span class="line">    <span class="comment"># 如果查询失败，或者已签到，则直接返回</span></span><br><span class="line">    <span class="keyword">if</span> result[<span class="string">&#x27;isError&#x27;</span>] <span class="keyword">or</span> result[<span class="string">&#x27;isCheck&#x27;</span>]:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    response = requests.post(config[<span class="string">&#x27;baseUrl&#x27;</span>] + config[<span class="string">&#x27;apiUrl&#x27;</span>][<span class="string">&#x27;checkIn&#x27;</span>], headers=config[<span class="string">&#x27;headers&#x27;</span>])</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;===签到: \n&#x27;</span> + <span class="built_in">str</span>(response.json()))</span><br><span class="line">    <span class="keyword">if</span> response.json()[<span class="string">&#x27;err_no&#x27;</span>] != <span class="number">0</span>:</span><br><span class="line">        send_email(<span class="string">&#x27;今日掘金签到：失败&#x27;</span>, response.json())</span><br><span class="line">    <span class="comment"># else:</span></span><br><span class="line">    <span class="comment">#     content = &#x27;签到积分：&#x27; + str(response.json()[&#x27;data&#x27;][&#x27;incr_point&#x27;]) + &#x27;\n&#x27; \</span></span><br><span class="line">    <span class="comment">#             + &#x27;全部积分：&#x27; + str(response.json()[&#x27;data&#x27;][&#x27;sum_point&#x27;])</span></span><br><span class="line">    <span class="comment">#     send_email(&#x27;今日掘金签到：成功&#x27;, content)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获得今日是否有一次免费抽奖</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_today_draw_status</span>():</span><br><span class="line">    response = requests.get(config[<span class="string">&#x27;baseUrl&#x27;</span>] + config[<span class="string">&#x27;apiUrl&#x27;</span>][<span class="string">&#x27;getLotteryConfig&#x27;</span>], headers=config[<span class="string">&#x27;headers&#x27;</span>])</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;===获得今日是否有一次免费抽奖: \n&#x27;</span> + <span class="built_in">str</span>(response.json()))</span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="string">&#x27;isError&#x27;</span>: response.json()[<span class="string">&#x27;err_no&#x27;</span>] != <span class="number">0</span>, <span class="string">&#x27;canDraw&#x27;</span>: response.json()[<span class="string">&#x27;data&#x27;</span>][<span class="string">&#x27;free_count&#x27;</span>] == <span class="number">1</span>&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 抽奖</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">draw</span>():</span><br><span class="line">    result = get_today_draw_status()</span><br><span class="line">    <span class="keyword">if</span> result[<span class="string">&#x27;isError&#x27;</span>] <span class="keyword">or</span> <span class="keyword">not</span> result[<span class="string">&#x27;canDraw&#x27;</span>]:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    response = requests.post(config[<span class="string">&#x27;baseUrl&#x27;</span>] + config[<span class="string">&#x27;apiUrl&#x27;</span>][<span class="string">&#x27;drawLottery&#x27;</span>], headers=config[<span class="string">&#x27;headers&#x27;</span>])</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;===抽奖: \n&#x27;</span> + <span class="built_in">str</span>(response.json()))</span><br><span class="line">    <span class="comment"># 抽奖成功</span></span><br><span class="line">    <span class="keyword">if</span> response.json()[<span class="string">&#x27;err_no&#x27;</span>] == <span class="number">0</span>:</span><br><span class="line">        <span class="comment"># 抽到实物通知</span></span><br><span class="line">        <span class="keyword">if</span> response.json()[<span class="string">&#x27;data&#x27;</span>][<span class="string">&#x27;lottery_type&#x27;</span>] &gt; <span class="number">1</span>:</span><br><span class="line">            send_email(<span class="string">&#x27;卧槽，居然抽到实物了！&#x27;</span>, response.json()[<span class="string">&#x27;data&#x27;</span>][<span class="string">&#x27;lottery_name&#x27;</span>])</span><br><span class="line">        <span class="comment"># 幸运值 6000 必抽中实物</span></span><br><span class="line">        <span class="keyword">if</span> response.json()[<span class="string">&#x27;data&#x27;</span>][<span class="string">&#x27;total_lucky_value&#x27;</span>] &gt;= <span class="number">5990</span>:</span><br><span class="line">            send_email(<span class="string">&#x27;幸运值即将溢出！！！高能时刻！！！&#x27;</span>, <span class="string">&#x27;幸运值：&#x27;</span> + response.json()[<span class="string">&#x27;data&#x27;</span>][<span class="string">&#x27;total_lucky_value&#x27;</span>])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送邮件</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">send_email</span>(<span class="params">subject=<span class="string">&#x27;掘金脚本执行结果通知&#x27;</span>, content=<span class="string">&#x27;测试&#x27;</span></span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;===&#x27;</span> + <span class="built_in">str</span>(datetime.now()))</span><br><span class="line">    msg = MIMEText(content)</span><br><span class="line">    msg[<span class="string">&#x27;Subject&#x27;</span>] = subject</span><br><span class="line">    msg[<span class="string">&#x27;From&#x27;</span>] = config[<span class="string">&#x27;email&#x27;</span>][<span class="string">&#x27;sender&#x27;</span>]</span><br><span class="line">    msg[<span class="string">&#x27;To&#x27;</span>] = config[<span class="string">&#x27;email&#x27;</span>][<span class="string">&#x27;receiver&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    server = smtplib.SMTP_SSL(host=config[<span class="string">&#x27;email&#x27;</span>][<span class="string">&#x27;host&#x27;</span>], port=config[<span class="string">&#x27;email&#x27;</span>][<span class="string">&#x27;port&#x27;</span>])</span><br><span class="line">    server.login(config[<span class="string">&#x27;email&#x27;</span>][<span class="string">&#x27;sender&#x27;</span>], config[<span class="string">&#x27;email&#x27;</span>][<span class="string">&#x27;pwd&#x27;</span>])</span><br><span class="line">    server.sendmail(config[<span class="string">&#x27;email&#x27;</span>][<span class="string">&#x27;sender&#x27;</span>], config[<span class="string">&#x27;email&#x27;</span>][<span class="string">&#x27;receiver&#x27;</span>], msg.as_string())</span><br><span class="line">    server.quit()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;===&#x27;</span> + <span class="built_in">str</span>(datetime.now()))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;=====&#x27;</span> + <span class="built_in">str</span>(datetime.now()) + <span class="string">&#x27;=====&#x27;</span>)</span><br><span class="line">    init()</span><br><span class="line">    check_in()</span><br><span class="line">    draw()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;\n\n&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>发送请求需要携带 Cookie，这个在浏览器登录掘金后，找一个请求，别是静态资源请求，可以看到 Cookie，将值取来。</p>
+<p><img src="https://raw.githubusercontent.com/lkzc19/blasphemy.zimg/main/drinkice/2023-09-10-02-49-34.jpg" alt="获取Cookie"></p>
+<p>而发送邮件则是去相对应的邮箱网站拿到授权码，登录操作就是拿邮箱号和授权码做登录的，然后就可以发送邮件。</p>
+<blockquote>
+<p>这里是QQ的，而且是已经开启SMTP服务的状态</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/lkzc19/blasphemy.zimg/main/drinkice/2023-09-10-02-57-52.png" alt="获取邮箱授权码"></p>
+<p>用 shell 脚本将 Python 脚本封装一层，方便调用。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">python3 ~/bin/lib/si4jj.py \</span><br><span class="line">--cookie \</span><br><span class="line">&quot;xxx&quot; \</span><br><span class="line">--receiver \</span><br><span class="line">&quot;foo@foxmail.com&quot;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Mac开机延迟任务"><a href="#Mac开机延迟任务" class="headerlink" title="Mac开机延迟任务"></a>Mac开机延迟任务</h2><h3 id="开机任务配置"><a href="#开机任务配置" class="headerlink" title="开机任务配置"></a>开机任务配置</h3><p>Mac 开机延迟任务需要在路径 <code>~/Library/LaunchAgents</code> 下编写一个 xml 文件，来配置延迟任务。文件名参考其他开机任务配置文件的名字，叫做 <code>xyz.drinkice.blasphemy.si4jj.plist</code>。</p>
+<p><img src="https://raw.githubusercontent.com/lkzc19/blasphemy.zimg/main/drinkice/2023-09-10-10-33-15.png" alt="开机任务"></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">plist</span> <span class="keyword">PUBLIC</span> <span class="string">&quot;-//Apple//DTD PLIST 1.0//EN&quot;</span> <span class="string">&quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">plist</span> <span class="attr">version</span>=<span class="string">&quot;1.0&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dict</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>Label<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>xyz.drinkice.blasphemy.si4jj<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>ProgramArguments<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">array</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>/bin/bash<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>/Users/lkzc19/bin/si4jj<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">array</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>RunAtLoad<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">true</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>StartInterval<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">integer</span>&gt;</span>300<span class="tag">&lt;/<span class="name">integer</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>StandardOutPath<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>/Users/lkzc19/log/si4jj.log<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>StandardErrorPath<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>/Users/lkzc19/log/si4jj_error.log<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dict</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plist</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>标签名与文件名保持一致，可以用于查询任务状态。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">key</span>&gt;</span>Label<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">string</span>&gt;</span>xyz.drinkice.blasphemy.si4jj<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>脚本位置，要使用绝对路径，不可用 <code>~</code> 表示 home 目录。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">key</span>&gt;</span>ProgramArguments<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">array</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>/bin/bash<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>/Users/lkzc19/bin/si4jj<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">array</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>开机后 5 分钟执行，单位是 秒。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">key</span>&gt;</span>StartInterval<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">integer</span>&gt;</span>300<span class="tag">&lt;/<span class="name">integer</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>日志输出，标准输出 和 标准错误输出，同样绝对路径。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">key</span>&gt;</span>StandardOutPath<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">string</span>&gt;</span>/Users/lkzc19/log/si4jj.log<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">key</span>&gt;</span>StandardErrorPath<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">string</span>&gt;</span>/Users/lkzc19/log/si4jj_error.log<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="开机任务加载及调试"><a href="#开机任务加载及调试" class="headerlink" title="开机任务加载及调试"></a>开机任务加载及调试</h3><p>使用以下命令加载开机任务配置文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">launchctl load ~/Library/LaunchAgents/xyz.drinkice.blasphemy.si4jj.plist</span><br></pre></td></tr></table></figure>
+
+<p>一次次开关机测试配置文件有没生效太麻烦，可以使用以下命令手动触发开机任务。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">launchctl start xyz.drinkice.blasphemy.si4jj</span><br></pre></td></tr></table></figure>
+
+<p>可以通过以下命令查看脚本状态，0 代表正常。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">launchctl list | grep xyz</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出</span></span><br><span class="line"><span class="comment"># -	0	xyz.drinkice.blasphemy.si4jj</span></span><br></pre></td></tr></table></figure>
+
+<p>再看看日志输出是否正常。</p>
+<p><img src="https://raw.githubusercontent.com/lkzc19/blasphemy.zimg/main/drinkice/2023-09-10-10-58-43.png" alt="日志"></p>
+<p>如果配置文件写错，需要将原先的配置文件卸载后，才能再装载上。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">launchctl unload ~/Library/LaunchAgents/xyz.drinkice.blasphemy.si4jj.plist</span><br></pre></td></tr></table></figure>
+
+<h1 id="2-最后"><a href="#2-最后" class="headerlink" title="2 最后"></a>2 最后</h1><p>原先参考的那篇文章已经找不到链接了，所以没有贴出来。</p>
+<p>本文仅用于学习交流。</p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2023/09/07/Github%E5%9B%BE%E5%BA%8A/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>上一页</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="更新时间"></i>
+              2023-09-10 11:24:59
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="标签"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/Python/" title="Python">
+                        #Python
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">目录</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#0-%E5%89%8D%E8%A8%80"><span class="toc-text">0 前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E6%AD%A3%E6%96%87"><span class="toc-text">1 正文</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%84%9A%E6%9C%AC%E7%BC%96%E5%86%99"><span class="toc-text">脚本编写</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mac%E5%BC%80%E6%9C%BA%E5%BB%B6%E8%BF%9F%E4%BB%BB%E5%8A%A1"><span class="toc-text">Mac开机延迟任务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E6%9C%BA%E4%BB%BB%E5%8A%A1%E9%85%8D%E7%BD%AE"><span class="toc-text">开机任务配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E6%9C%BA%E4%BB%BB%E5%8A%A1%E5%8A%A0%E8%BD%BD%E5%8F%8A%E8%B0%83%E8%AF%95"><span class="toc-text">开机任务加载及调试</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E6%9C%80%E5%90%8E"><span class="toc-text">2 最后</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © 2023 Oranges</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="搜索...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>首次搜索，正在载入索引文件，请稍后……<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>没有找到内容，请尝试更换检索词。<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>未找到search.xml文件，具体请参考：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>请求失败，尝试重新刷新页面或稍后重试。<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E6%8E%98%E9%87%91%E7%AD%BE%E5%88%B0%E8%84%9A%E6%9C%AC + '&url=' + http%3A%2F%2Flkzc19.github.io%2F2023%2F09%2F10%2F%25E6%258E%2598%25E9%2587%2591%25E7%25AD%25BE%25E5%2588%25B0%25E8%2584%259A%25E6%259C%25AC%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://lkzc19.github.io/2023/09/10/%E6%8E%98%E9%87%91%E7%AD%BE%E5%88%B0%E8%84%9A%E6%9C%AC/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>
