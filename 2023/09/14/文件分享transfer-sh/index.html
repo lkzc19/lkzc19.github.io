@@ -11,7 +11,7 @@
   
   <title>
     
-      archive_a: 2023/9 
+      文件分享transfer.sh 
       
       
       |
@@ -106,77 +106,145 @@
 
 
       <div class="flex-container">
-        <!-- 归档页，展示本站所有文章，按照年份降序归类，url形式：https://yoursite/archives/ -->
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
 
-<!-- last: 按年份把文章分组，当前遍历到的年份 -->
-<!-- now: 当前遍历到的文章的发布年份 -->
 
-<div class="container archives">
-  <div class="post-list">
-    
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2023</span>
-          </h2>
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">文件分享transfer.sh</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="更新时间"></i>
+          2023-09-14 22:33:49
+        </span>
+        
+      </div>
+      <div class="markdown-body">
+        <h1 id="0-前言"><a href="#0-前言" class="headerlink" title="0 前言"></a>0 前言</h1><p>最近工作需要将需要测试的App发到真机上测试，但是不想在公司的设备上登录私人QQ或者微信来传文件，公司也没有刻意用于分享文件的工具。这让我想起了上家公司，运维有提供一个脚本，只要执行这个脚本就可以把文件上传，返回一个链接，使用 wget 或者浏览器就可以下载下来，很方便好用。可惜当时没有去看脚本写的是啥，不然没准知道是怎么实现的。</p>
+<p>虽然可以自己写一个简单的服务，但是…</p>
+<p>这两天在查相关的东西时，发现一个好玩的东西 <a target="_blank" rel="noopener" href="https://github.com/dutchcoders/transfer.sh">transfer.sh</a> ，这个可以满足上述的需求。</p>
+<h1 id="1-正文"><a href="#1-正文" class="headerlink" title="1 正文"></a>1 正文</h1><p><a target="_blank" rel="noopener" href="https://github.com/dutchcoders/transfer.sh">transfer.sh</a> 是用Go写的一个文件服务，支持多种平台。存储源支持本地和部分云。</p>
+<p>下载解压后就可以直接运行。但是官方并没有直接给运行的示例，参数都列了出来。我使用以下参数运行(封装成了启动脚本)。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># transfer 解压后重命名了</span></span><br><span class="line"><span class="comment"># 存储放在本地</span></span><br><span class="line"><span class="comment"># 端口 设置为 4993</span></span><br><span class="line"><span class="comment"># 服务内路径</span></span><br><span class="line"><span class="comment"># 本地存放文件的路径</span></span><br><span class="line">./transfer \</span><br><span class="line">--provider=<span class="built_in">local</span> \</span><br><span class="line">--listener :4993 \</span><br><span class="line">--temp-path=/data/ \</span><br><span class="line">--basedir=~/TestEnv/transfersh/data/</span><br></pre></td></tr></table></figure>
+
+<p>通过以上参数就可以启动服务。</p>
+<p><img src="https://raw.githubusercontent.com/lkzc19/blasphemy.zimg/main/drinkice/2023-09-14-21-46-43.png"></p>
+<p>作为分享文件用的服务，它其实只是起一个中转站的作用。应该要有定时清除文件的功能。这个可以通过两个参数指定。</p>
+<ul>
+<li>purge-days 自动清除上传N天后的文件</li>
+<li>purge-interval 清除的时间间隔</li>
+</ul>
+<p>具体参考<a target="_blank" rel="noopener" href="https://github.com/dutchcoders/transfer.sh">官方文档</a>。</p>
+<p>启动成功之后可以在浏览器上打开 localhost:4993</p>
+<p><img src="https://raw.githubusercontent.com/lkzc19/blasphemy.zimg/main/drinkice/2023-09-14-00-55-48.png" alt="transfer.sh web"></p>
+<p>按照页面上的提示上传文件，可以使用 curl ，或者直接在web页面上上传文件。官方也封装了 curl 的一个脚本 transfer，但是我复制下来换来自己的IP后不能用的。所以自己写了一个简单的。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$#</span> -eq 0 ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;缺少参数 文件路径 如 transfer foo.txt | transfer ../bar.txt&quot;</span></span><br><span class="line">    <span class="built_in">return</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">server=<span class="string">&quot;192.168.31.120:4993&quot;</span></span><br><span class="line"></span><br><span class="line">file=<span class="string">&quot;<span class="variable">$1</span>&quot;</span></span><br><span class="line">file_name=$(<span class="built_in">basename</span> <span class="string">&quot;<span class="variable">$file</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ ! -e <span class="string">&quot;<span class="variable">$file</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$file</span>: No such file or directory&quot;</span> &gt;&amp;2</span><br><span class="line">    <span class="built_in">return</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">result=$(curl --upload-file <span class="variable">$file</span> <span class="string">&quot;<span class="variable">$server</span>/<span class="variable">$file_name</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ $? -eq 0 ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> -e <span class="string">&quot;\n下载链接: <span class="variable">$result</span>&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<p>将脚本添加到环境变量中。</p>
+<p><img src="https://raw.githubusercontent.com/lkzc19/blasphemy.zimg/main/drinkice/2023-09-14-21-51-57.png"></p>
+<h1 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h1><ul>
+<li><input disabled="" type="checkbox"> 官方文档其他操作封装</li>
+<li><input disabled="" type="checkbox"> 身份认证</li>
+<li><input disabled="" type="checkbox"> 二维码</li>
+</ul>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2023/09/10/%E6%8E%98%E9%87%91%E7%AD%BE%E5%88%B0%E8%84%9A%E6%9C%AC/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>上一页</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="更新时间"></i>
+              2023-09-14 22:33:49
+            </span>
+            
+          </div>
+          <div class="post-foot-prev">
+            
+          </div>
         </div>
       
-      <div class="post-item" title="文件分享transfer.sh">
-        <div class="time-m-d">09-14</div>
-        <div class="title">
-          <a href="/2023/09/14/%E6%96%87%E4%BB%B6%E5%88%86%E4%BA%ABtransfer-sh/">
-            <span>文件分享transfer.sh</span>
-          </a>
-        </div>
-      </div>
+    </div>
     
-      <div class="post-item" title="掘金签到脚本">
-        <div class="time-m-d">09-10</div>
-        <div class="title">
-          <a href="/2023/09/10/%E6%8E%98%E9%87%91%E7%AD%BE%E5%88%B0%E8%84%9A%E6%9C%AC/">
-            <span>掘金签到脚本</span>
-          </a>
-        </div>
-      </div>
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">目录</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#0-%E5%89%8D%E8%A8%80"><span class="toc-text">0 前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E6%AD%A3%E6%96%87"><span class="toc-text">1 正文</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#TODO"><span class="toc-text">TODO</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
     
-      <div class="post-item" title="Github图床">
-        <div class="time-m-d">09-07</div>
-        <div class="title">
-          <a href="/2023/09/07/Github%E5%9B%BE%E5%BA%8A/">
-            <span>Github图床</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Gitee图床">
-        <div class="time-m-d">09-06</div>
-        <div class="title">
-          <a href="/2023/09/06/Gitee%E5%9B%BE%E5%BA%8A/">
-            <span>Gitee图床</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Mac环境配置">
-        <div class="time-m-d">07-09</div>
-        <div class="title">
-          <a href="/2023/07/09/Mac%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">
-            <span>Mac环境配置</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Hello World">
-        <div class="time-m-d">07-09</div>
-        <div class="title">
-          <a href="/2023/07/09/hello-world/">
-            <span>Hello World</span>
-          </a>
-        </div>
+      <div class="comments-container">
+        
+
+
+
+
+
+
+
       </div>
     
   </div>
-</div>
+
 
         
 <div class="footer">
@@ -431,6 +499,24 @@
 
 
         
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E6%96%87%E4%BB%B6%E5%88%86%E4%BA%ABtransfer.sh + '&url=' + http%3A%2F%2Flkzc19.github.io%2F2023%2F09%2F14%2F%25E6%2596%2587%25E4%25BB%25B6%25E5%2588%2586%25E4%25BA%25ABtransfer-sh%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://lkzc19.github.io/2023/09/14/%E6%96%87%E4%BB%B6%E5%88%86%E4%BA%ABtransfer-sh/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
   
   
 <script src="/js/shares.js"></script>
