@@ -35,7 +35,7 @@ Set-ExecutionPolicy
 irm get.scoop.sh | iex
 ```
 
-## oh-my-zsh 安装
+## omp 安装
 
 安装完 scoop 后，就可以安装 omp 了。
 
