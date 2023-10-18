@@ -61,6 +61,7 @@ nvm use <version>
 ---
 参考&拓展资料
 
+- [NVM 使用淘宝镜像](https://medium.com/@interjc/nvm-%E4%BD%BF%E7%94%A8%E6%B7%98%E5%AE%9D%E9%95%9C%E5%83%8F-d9d31ac1ee46)
 
 
 拓展资料
