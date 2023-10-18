@@ -25,6 +25,8 @@ brew switch node <version>
 
 上 [官网](https://github.com/nvm-sh/nvm/releases) 下载 nvm。
 
+> nvm不推荐使用brew安装
+
 我将其解压后放到了 `~/Applications` 目录中(官方推荐放在 `~/.nvm`下)。配置环境变量，在 .zshrc 中添加如下内容：
 
 ```bash
