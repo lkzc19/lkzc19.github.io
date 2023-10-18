@@ -11,7 +11,7 @@
   
   <title>
     
-      Mac环境配置 
+      Node.js版本管理工具 NVM 
       
       
       |
@@ -151,19 +151,19 @@
   <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
   <div class="container post-details" id="post-details">
     <div class="post-content">
-      <div class="post-title">Mac环境配置</div>
+      <div class="post-title">Node.js版本管理工具 NVM</div>
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime mr-10" title="更新时间"></i>
-          2023-09-20 22:48:39
+          2023-10-18 21:10:31
         </span>
         
               <span class="post-tags">
                 <i class="iconfont icon-tags mr-10" title="标签"></i>
                 
                 <span class="span--tag mr-8">
-                  <a href="/tags/mac/" title="mac">
-                    #mac
+                  <a href="/tags/Node-js/" title="Node.js">
+                    #Node.js
                   </a>
                 </span>
                 
@@ -171,41 +171,35 @@
           
       </div>
       <div class="markdown-body">
-        <h1 id="0-前言"><a href="#0-前言" class="headerlink" title="0 前言"></a>0 前言</h1><p>Mac默认使用的shell是zsh，一般环境变量是直接在<code>.zshrc</code>文件中配置的。但是如果所有的环境变量、别名，或者是自己写的一些脚本都在这个文件中配置，会显得有点乱。在CentOS中，系统级别的环境配置会有一个总的配置文件去读一个目录下所有的配置文件。我也按照这种方式简单的组织了我的环境配置。</p>
-<h1 id="1-正文"><a href="#1-正文" class="headerlink" title="1 正文"></a>1 正文</h1><p>目录结构大致如下</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">~</span><br><span class="line">├──.zshrc</span><br><span class="line">├── profile.d</span><br><span class="line">│   ├── alias.d</span><br><span class="line">│   │   ├── custom.sh</span><br><span class="line">│   │   └── third.sh</span><br><span class="line">│   ├── oh<span class="emphasis">_my_</span>zsh.sh</span><br><span class="line">│   ├── zalias.sh</span><br><span class="line">│   ├── zenv.sh</span><br><span class="line">│   └── ztokens.sh</span><br><span class="line">└── bin</span><br><span class="line"><span class="code">	└── zmdot-sync.sh</span></span><br></pre></td></tr></table></figure>
+        <h1 id="0-前言"><a href="#0-前言" class="headerlink" title="0 前言"></a>0 前言</h1><p>在使用 node 开发时，发现有些包要特定的版本才可以配合使用。我使用 brew 安装的，虽然也可以做一些简单的版本管理，但是 brew 中的 node 版本还是太少了。所以还是需要一个正经的 node 版本管理工具 —— nvm。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看有哪些版本的node</span></span><br><span class="line">brew search node</span><br><span class="line"><span class="comment"># 安装指定版本的node</span></span><br><span class="line">brew install node@&lt;version&gt;</span><br><span class="line"><span class="comment"># 列出已安装的node</span></span><br><span class="line">brew list --versions node</span><br><span class="line"><span class="comment"># 切换node版本</span></span><br><span class="line">brew switch node &lt;version&gt;</span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<p>tree目录使用homebrew安装的tree生成的</p>
-</blockquote>
-<p>模仿CentOS，在<code>.zshrc</code>中遍历<code>profile.d</code>中所有的配置文件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> ~/profile.d/*.sh ; <span class="keyword">do</span></span><br><span class="line">    <span class="keyword">if</span> [ -r <span class="string">&quot;<span class="variable">$i</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$&#123;-#*i&#125;</span>&quot;</span> != <span class="string">&quot;$-&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">            . <span class="string">&quot;<span class="variable">$i</span>&quot;</span></span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            . <span class="string">&quot;<span class="variable">$i</span>&quot;</span> &gt;/dev/null 2&gt;&amp;1</span><br><span class="line">        <span class="keyword">fi</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<h1 id="1-正文-MacOS"><a href="#1-正文-MacOS" class="headerlink" title="1 正文 (MacOS)"></a>1 正文 (MacOS)</h1><h2 id="安装配置"><a href="#安装配置" class="headerlink" title="安装配置"></a>安装配置</h2><p>上 <a target="_blank" rel="noopener" href="https://github.com/nvm-sh/nvm/releases">官网</a> 下载 nvm。</p>
+<p>我将其解压后放到了 <code>~/Applications</code> 目录中(官方推荐放在 <code>~/.nvm</code>下)。配置环境变量，在 .zshrc 中添加如下内容：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># nvm的home目录</span></span><br><span class="line"><span class="built_in">export</span> NVM_HOME=<span class="string">&quot;<span class="variable">$HOME</span>/Applications/nvm-0.39.5&quot;</span></span><br><span class="line"><span class="comment"># 检查是否有这文件，如果有就执行</span></span><br><span class="line">[ -s <span class="string">&quot;<span class="variable">$NVM_HOME</span>/nvm.sh&quot;</span> ] &amp;&amp; \. <span class="string">&quot;<span class="variable">$NVM_HOME</span>/nvm.sh&quot;</span></span><br><span class="line">[ -s <span class="string">&quot;<span class="variable">$NVM_HOME</span>/bash_completion&quot;</span> ] &amp;&amp; \. <span class="string">&quot;<span class="variable">$NVM_HOME</span>/bash_completion&quot;</span></span><br><span class="line"><span class="comment"># 设置nvm镜像(淘宝)，没有配置下载很慢 io.js就不配置了</span></span><br><span class="line"><span class="built_in">export</span> NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node/</span><br></pre></td></tr></table></figure>
 
-<p>其中在<code>~/profile.d/zenv.sh</code>配置了平时开发会用到的环境变量，比如Java的环境变量等，平时可能需要多种版本的Java，所以配置了多版本Java，根据需求使用别名<code>jdk8/jdk11</code>做切换。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># JAVA</span></span><br><span class="line">JAVA_HOME_8=<span class="string">&quot;/Library/Java/JavaVirtualMachines/jdk1.8.0_341.jdk/Contents/Home&quot;</span></span><br><span class="line">JAVA_HOME_11=<span class="string">&quot;/Library/Java/JavaVirtualMachines/jdk-11.0.14.jdk/Contents/Home&quot;</span></span><br><span class="line"></span><br><span class="line">JAVA_HOME=<span class="variable">$JAVA_HOME_8</span></span><br><span class="line">PATH=<span class="variable">$PATH</span>:<span class="variable">$JAVA_HOME</span>/bin</span><br><span class="line"><span class="built_in">export</span> JAVA_HOME</span><br><span class="line"><span class="built_in">export</span> PATH</span><br><span class="line"><span class="comment"># 用于切换JDK版本</span></span><br><span class="line"><span class="built_in">alias</span> jdk8=<span class="string">&quot;export JAVA_HOME=<span class="variable">$JAVA_HOME_8</span>&quot;</span></span><br><span class="line"><span class="built_in">alias</span> jdk11=<span class="string">&quot;export JAVA_HOME=<span class="variable">$JAVA_HOME_11</span>&quot;</span></span><br></pre></td></tr></table></figure>
+<p>然后刷新 <code>source ~/.zshrc</code> 即可。</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看当前使用版本</span></span><br><span class="line">nvm current</span><br><span class="line"><span class="comment"># 查看安装的node</span></span><br><span class="line">nvm <span class="built_in">ls</span></span><br><span class="line"><span class="comment"># 查看可安装的node版本</span></span><br><span class="line">nvm ls-remote</span><br><span class="line"><span class="comment"># 查看可安装的长期支持版的node版本</span></span><br><span class="line">nvm ls-remote --lts</span><br><span class="line"><span class="comment"># 安装node 只写大版本号是安装该版本号的长期支持版本</span></span><br><span class="line">nvm install &lt;version&gt;</span><br><span class="line"><span class="comment"># 切换node版本 直接大版本号就可以切换</span></span><br><span class="line">nvm use &lt;version&gt;</span><br></pre></td></tr></table></figure>
 
-<p>在<code>~/profile.d/zalias.sh</code>中配置别名，比较通用的命令别名在这个文件中直接配置，且在该文件中使用与<code>.zshrc</code>文件一样的方法读取其他的文件，做一个别名分组。比如我再分了两个别名文件。</p>
-<p>在<code>third.sh</code>中，设置了第三方软件命令的别名，比如Redis根据配置文件启动。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 存放第三方软件，通常是「学习」用的，平时不会使用的命令的别名</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ElasticSearch</span></span><br><span class="line"><span class="built_in">alias</span> es=<span class="string">&#x27;elasticsearch&#x27;</span></span><br><span class="line"><span class="built_in">alias</span> esp=<span class="string">&#x27;elasticsearch-plugin&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Redis</span></span><br><span class="line"><span class="comment"># redis-server conf</span></span><br><span class="line"><span class="built_in">alias</span> redis-server.conf=<span class="string">&#x27;redis-server /opt/homebrew/etc/redis.conf --color=auto&#x27;</span></span><br></pre></td></tr></table></figure>
 
-<p>在<code>custom.sh</code>中，我放了一些大佬写的项目，或者自己写的demo的启动命令别名。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 存放平时自己开发，或者是大佬开发的软件的启动命令的别名</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># gitee上大佬做的仿git项目</span></span><br><span class="line"><span class="built_in">alias</span> zit=<span class="string">&#x27;java -jar $HOME/bin/lib/zit-1.0-SNAPSHOT-shaded.jar&#x27;</span></span><br></pre></td></tr></table></figure>
 
-<p><code>ztokens.sh</code>文件中，存放了一些token凭证，提供给一些软件使用，比如Github API Token</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 用于存放一些token，如Github API Token，如：</span></span><br><span class="line"><span class="built_in">export</span> HOMEBREW_GITHUB_API_TOKEN=xxx</span><br></pre></td></tr></table></figure>
-
-<p>像是<code>oh_my_zsh.sh</code>这些文件，就是专门的配置文件了。</p>
-<p><code>~/bin</code>目录下放了一些执行脚本，在<code>zenv.sh</code>中设置好环境变量就可以直接调用了。</p>
-<p>配置文件以上传至<a target="_blank" rel="noopener" href="https://github.com/lkzc19/zmdot">github</a></p>
 <hr>
-<p>关于别名参考<a target="_blank" rel="noopener" href="https://github.com/paulirish/dotfiles/blob/main/.aliases">dotfiles</a>，该仓库还包含了其他许多配置。</p>
+<p>参考&amp;拓展资料</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://medium.com/@interjc/nvm-%E4%BD%BF%E7%94%A8%E6%B7%98%E5%AE%9D%E9%95%9C%E5%83%8F-d9d31ac1ee46">NVM 使用淘宝镜像</a></li>
+</ul>
+<p>拓展资料</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://fed.taobao.org/blog/taofed/do71ct/nvm-or-n/?spm=taofed.homepage.header.7.7eab5ac8dDRkRS">管理 node 版本，选择 nvm 还是 n？</a> (2015)</li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/19914290">何为 Io.js</a> (2014)</li>
+</ul>
 
       </div>
       
         <div class="prev-or-next">
           <div class="post-foot-next">
             
-              <a href="/2023/07/09/hello-world/" target="_self">
+              <a href="/2023/10/03/Windows%20Terminal%20%E7%BE%8E%E5%8C%96/" target="_self">
                 <i class="iconfont icon-chevronleft"></i>
                 <span>上一页</span>
               </a>
@@ -214,15 +208,15 @@
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime mr-10" title="更新时间"></i>
-              2023-09-20 22:48:39
+              2023-10-18 21:10:31
             </span>
             
                   <span class="post-tags">
                     <i class="iconfont icon-tags mr-10" title="标签"></i>
                     
                     <span class="span--tag mr-8">
-                      <a href="/tags/mac/" title="mac">
-                        #mac
+                      <a href="/tags/Node-js/" title="Node.js">
+                        #Node.js
                       </a>
                     </span>
                     
@@ -230,11 +224,6 @@
               
           </div>
           <div class="post-foot-prev">
-            
-              <a href="/2023/09/06/Gitee%E5%9B%BE%E5%BA%8A/" target="_self">
-                <span>下一页</span>
-                <i class="iconfont icon-chevronright"></i>
-              </a>
             
           </div>
         </div>
@@ -248,7 +237,7 @@
     <div class="title">目录</div>
     <div class="catalog-content">
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#0-%E5%89%8D%E8%A8%80"><span class="toc-text">0 前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E6%AD%A3%E6%96%87"><span class="toc-text">1 正文</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#0-%E5%89%8D%E8%A8%80"><span class="toc-text">0 前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E6%AD%A3%E6%96%87-MacOS"><span class="toc-text">1 正文 (MacOS)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE"><span class="toc-text">安装配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-text">使用</span></a></li></ol></li></ol>
       
     </div>
   </div>
@@ -534,12 +523,12 @@
       </a>
       <div class="share-content hidden">
         
-          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + Mac%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE + '&url=' + http%3A%2F%2Flkzc19.github.io%2F2023%2F07%2F09%2FMac%25E7%258E%25AF%25E5%25A2%2583%25E9%2585%258D%25E7%25BD%25AE%2F + '" target="_blank" title="Twitter">
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + Node.js%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%20NVM + '&url=' + http%3A%2F%2Flkzc19.github.io%2F2023%2F10%2F17%2FNode.js%25E7%2589%2588%25E6%259C%25AC%25E7%25AE%25A1%25E7%2590%2586%25E5%25B7%25A5%25E5%2585%25B7-NVM%2F + '" target="_blank" title="Twitter">
             <i class="iconfont icon-twitter"></i>
           </a>
         
         
-          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://lkzc19.github.io/2023/07/09/Mac%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" target="_blank" title="Facebook">
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://lkzc19.github.io/2023/10/17/Node.js%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7-NVM/" target="_blank" title="Facebook">
             <i class="iconfont icon-facebooksquare"></i>
           </a>
         
