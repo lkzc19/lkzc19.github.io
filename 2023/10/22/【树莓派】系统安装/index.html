@@ -11,7 +11,7 @@
   
   <title>
     
-      Node.js版本管理工具 NVM 
+      【树莓派】系统安装 
       
       
       |
@@ -151,19 +151,19 @@
   <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
   <div class="container post-details" id="post-details">
     <div class="post-content">
-      <div class="post-title">Node.js版本管理工具 NVM</div>
+      <div class="post-title">【树莓派】系统安装</div>
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime mr-10" title="更新时间"></i>
-          2023-10-18 22:38:07
+          2023-10-22 23:43:04
         </span>
         
               <span class="post-tags">
                 <i class="iconfont icon-tags mr-10" title="标签"></i>
                 
                 <span class="span--tag mr-8">
-                  <a href="/tags/Node-js/" title="Node.js">
-                    #Node.js
+                  <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/" title="树莓派">
+                    #树莓派
                   </a>
                 </span>
                 
@@ -171,30 +171,62 @@
           
       </div>
       <div class="markdown-body">
-        <h1 id="0-前言"><a href="#0-前言" class="headerlink" title="0 前言"></a>0 前言</h1><p>在使用 node 开发时，发现有些包要特定的版本才可以配合使用。我使用 brew 安装的，虽然也可以做一些简单的版本管理，但是 brew 中的 node 版本还是太少了。所以还是需要一个正经的 node 版本管理工具 —— nvm。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看有哪些版本的node</span></span><br><span class="line">brew search node</span><br><span class="line"><span class="comment"># 安装指定版本的node</span></span><br><span class="line">brew install node@&lt;version&gt;</span><br><span class="line"><span class="comment"># 列出已安装的node</span></span><br><span class="line">brew list --versions node</span><br><span class="line"><span class="comment"># 切换node版本</span></span><br><span class="line">brew switch node &lt;version&gt;</span><br></pre></td></tr></table></figure>
-
-<h1 id="1-正文-MacOS"><a href="#1-正文-MacOS" class="headerlink" title="1 正文 (MacOS)"></a>1 正文 (MacOS)</h1><h2 id="安装配置"><a href="#安装配置" class="headerlink" title="安装配置"></a>安装配置</h2><p>上 <a target="_blank" rel="noopener" href="https://github.com/nvm-sh/nvm/releases">官网</a> 下载 nvm。</p>
-<blockquote>
-<p>nvm不推荐使用brew安装</p>
-</blockquote>
-<p>我将其解压后放到了 <code>~/Applications</code> 目录中(官方推荐放在 <code>~/.nvm</code>下)。配置环境变量，在 .zshrc 中添加如下内容：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># nvm的home目录</span></span><br><span class="line"><span class="built_in">export</span> NVM_HOME=<span class="string">&quot;<span class="variable">$HOME</span>/Applications/nvm-0.39.5&quot;</span></span><br><span class="line"><span class="comment"># 检查是否有这文件，如果有就执行</span></span><br><span class="line">[ -s <span class="string">&quot;<span class="variable">$NVM_HOME</span>/nvm.sh&quot;</span> ] &amp;&amp; \. <span class="string">&quot;<span class="variable">$NVM_HOME</span>/nvm.sh&quot;</span></span><br><span class="line">[ -s <span class="string">&quot;<span class="variable">$NVM_HOME</span>/bash_completion&quot;</span> ] &amp;&amp; \. <span class="string">&quot;<span class="variable">$NVM_HOME</span>/bash_completion&quot;</span></span><br><span class="line"><span class="comment"># 设置nvm镜像(淘宝)，没有配置下载很慢 io.js就不配置了</span></span><br><span class="line"><span class="built_in">export</span> NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node/</span><br></pre></td></tr></table></figure>
-
-<p>然后刷新 <code>source ~/.zshrc</code> 即可。</p>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看当前使用版本</span></span><br><span class="line">nvm current</span><br><span class="line"><span class="comment"># 查看安装的node</span></span><br><span class="line">nvm <span class="built_in">ls</span></span><br><span class="line"><span class="comment"># 查看可安装的node版本</span></span><br><span class="line">nvm ls-remote</span><br><span class="line"><span class="comment"># 查看可安装的长期支持版的node版本</span></span><br><span class="line">nvm ls-remote --lts</span><br><span class="line"><span class="comment"># 安装node 只写大版本号是安装该版本号的长期支持版本</span></span><br><span class="line">nvm install &lt;version&gt;</span><br><span class="line"><span class="comment"># 切换node版本 直接大版本号就可以切换</span></span><br><span class="line">nvm use &lt;version&gt;</span><br></pre></td></tr></table></figure>
-
-
-
-<hr>
-<p>参考&amp;拓展资料</p>
+        <h1 id="SD卡格式化"><a href="#SD卡格式化" class="headerlink" title="SD卡格式化"></a>SD卡格式化</h1><p>找到<strong>磁盘管理器</strong>，选择SD卡进行格式化，格式默认的<strong>FAT32</strong>。</p>
+<h1 id="下载树莓派系统镜像"><a href="#下载树莓派系统镜像" class="headerlink" title="下载树莓派系统镜像"></a>下载树莓派系统镜像</h1><p><a target="_blank" rel="noopener" href="https://www.raspberrypi.com/software/operating-systems/">官方网址</a></p>
+<p><img src="https://raw.githubusercontent.com/lkzc19/blasphemy.zimg/main/drinkice/2023-10-22-23-39-48.png" alt="image.png"></p>
+<p>3个版本，分别是：</p>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://medium.com/@interjc/nvm-%E4%BD%BF%E7%94%A8%E6%B7%98%E5%AE%9D%E9%95%9C%E5%83%8F-d9d31ac1ee46">NVM 使用淘宝镜像</a></li>
+<li>带UI界面；</li>
+<li>带UI以及推荐软件、如Java；</li>
+<li>只有操作系统，是最精简版的；</li>
 </ul>
-<p>拓展资料</p>
+<h1 id="烧录镜像文件"><a href="#烧录镜像文件" class="headerlink" title="烧录镜像文件"></a>烧录镜像文件</h1><p>烧录软件：<a target="_blank" rel="noopener" href="https://www.balena.io/etcher/">balentcher</a>。<br>步骤：</p>
+<ol>
+<li>选择下载好的镜像文件；</li>
+<li>选择要烧录的SD卡；</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/lkzc19/blasphemy.zimg/main/drinkice/2023-10-22-23-40-14.png" alt="image.png"></p>
+<p>点击<strong>Flash!</strong> 后开始烧录，在烧录的最后一步【verifying】时可能会失败，但实际上已经烧录进去，可以直接点<strong>skip</strong>。在此间，SD卡被分区，其中一个时<strong>boot</strong>，另外一个电脑会提示是否要格式化，不用管。</p>
+<p><img src="https://raw.githubusercontent.com/lkzc19/blasphemy.zimg/main/drinkice/2023-10-22-23-40-45.png" alt="image.png"></p>
+<h1 id="配置与树莓派连接"><a href="#配置与树莓派连接" class="headerlink" title="配置与树莓派连接"></a>配置与树莓派连接</h1><p>在<strong>boot</strong>下建立<strong>ssh</strong>和<strong>wpa_supplicant.conf</strong>两个文件，<strong>ssh</strong>文件不用管，<strong>wpa_supplicant.conf</strong>文件添加以下内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">country=CN</span><br><span class="line">ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev</span><br><span class="line">update_config=1</span><br><span class="line"></span><br><span class="line">network=&#123;</span><br><span class="line">  ssid=&quot;wifi 名称&quot;</span><br><span class="line">  psk=&quot;wifi 密码&quot;</span><br><span class="line">  priority=1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后将SD卡插入树莓派卡槽，连接上电源，树莓派会自动连接上wifi的。</p>
+<h1 id="配置树莓派静态IP"><a href="#配置树莓派静态IP" class="headerlink" title="配置树莓派静态IP"></a>配置树莓派静态IP</h1><p>家里使用的是小米路由器，登录小米路由器的后台。可以看到树莓派的IP和MAC地址，将IP与MAC地址绑定。</p>
+<p><img src="https://raw.githubusercontent.com/lkzc19/blasphemy.zimg/main/drinkice/2023-10-22-23-41-08.png" alt="image.png"></p>
+<p>在顶部【常用设置】-【局域网设置】-【DHCP静态IP分配】中绑定。</p>
+<p><img src="https://raw.githubusercontent.com/lkzc19/blasphemy.zimg/main/drinkice/2023-10-22-23-41-36.png" alt="image.png"></p>
+<h1 id="ssh连接树莓派"><a href="#ssh连接树莓派" class="headerlink" title="ssh连接树莓派"></a>ssh连接树莓派</h1><p>使用的终端工具是Tabby。<br>ip就是在路由器后台中看到的raspberrypi对应的192.168.31.10。<br>默认的用户名和密码：</p>
+<table>
+<thead>
+<tr>
+<th>用户名</th>
+<th>pi</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>密码</td>
+<td>raspberry</td>
+</tr>
+</tbody></table>
+<p><img src="https://raw.githubusercontent.com/lkzc19/blasphemy.zimg/main/drinkice/2023-10-22-23-41-55.png" alt="image.png"><br>进入终端，代表成功：</p>
+<p><img src="https://raw.githubusercontent.com/lkzc19/blasphemy.zimg/main/drinkice/2023-10-22-23-42-21.png" alt="image.png"></p>
+<h1 id="使用UI（带desktop）"><a href="#使用UI（带desktop）" class="headerlink" title="使用UI（带desktop）"></a>使用UI（带desktop）</h1><p>输入以下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo raspi-config</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/lkzc19/blasphemy.zimg/main/drinkice/2023-10-22-23-42-38.png" alt="image.png"><br>使用方向键控制关标，回车键选择。做以下几步操作：</p>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://fed.taobao.org/blog/taofed/do71ct/nvm-or-n/?spm=taofed.homepage.header.7.7eab5ac8dDRkRS">管理 node 版本，选择 nvm 还是 n？</a> (2015)</li>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/19914290">何为 Io.js</a> (2014)</li>
+<li><strong>在Interfacing Options中VNC选择Yes，开启VNC；</strong></li>
+<li>在Advanced Options中Resolution选择1920*1080；</li>
+<li><strong>在Advanced Options选择Expand Filesystem</strong>；</li>
+</ul>
+<p>下载<a target="_blank" rel="noopener" href="https://www.realvnc.com/en/connect/download/viewer/windows/">VNC</a>来看树莓派桌面，打开软件，输入树莓派IP即可。</p>
+<p><img src="https://raw.githubusercontent.com/lkzc19/blasphemy.zimg/main/drinkice/2023-10-22-23-42-54.png" alt="image.png"></p>
+<hr>
+<p>参考资料</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/92175850">从零开始在树莓派上安装系统（无显示器和网线）</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44323306/article/details/125689417">调整时间</a></li>
 </ul>
 
       </div>
@@ -202,7 +234,7 @@
         <div class="prev-or-next">
           <div class="post-foot-next">
             
-              <a href="/2023/10/03/Windows%20Terminal%20%E7%BE%8E%E5%8C%96/" target="_self">
+              <a href="/2023/10/17/Node.js%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7-NVM/" target="_self">
                 <i class="iconfont icon-chevronleft"></i>
                 <span>上一页</span>
               </a>
@@ -211,15 +243,15 @@
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime mr-10" title="更新时间"></i>
-              2023-10-18 22:38:07
+              2023-10-22 23:43:04
             </span>
             
                   <span class="post-tags">
                     <i class="iconfont icon-tags mr-10" title="标签"></i>
                     
                     <span class="span--tag mr-8">
-                      <a href="/tags/Node-js/" title="Node.js">
-                        #Node.js
+                      <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/" title="树莓派">
+                        #树莓派
                       </a>
                     </span>
                     
@@ -227,11 +259,6 @@
               
           </div>
           <div class="post-foot-prev">
-            
-              <a href="/2023/10/22/%E3%80%90%E6%A0%91%E8%8E%93%E6%B4%BE%E3%80%91%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/" target="_self">
-                <span>下一页</span>
-                <i class="iconfont icon-chevronright"></i>
-              </a>
             
           </div>
         </div>
@@ -245,7 +272,7 @@
     <div class="title">目录</div>
     <div class="catalog-content">
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#0-%E5%89%8D%E8%A8%80"><span class="toc-text">0 前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E6%AD%A3%E6%96%87-MacOS"><span class="toc-text">1 正文 (MacOS)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE"><span class="toc-text">安装配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-text">使用</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SD%E5%8D%A1%E6%A0%BC%E5%BC%8F%E5%8C%96"><span class="toc-text">SD卡格式化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E6%A0%91%E8%8E%93%E6%B4%BE%E7%B3%BB%E7%BB%9F%E9%95%9C%E5%83%8F"><span class="toc-text">下载树莓派系统镜像</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%83%A7%E5%BD%95%E9%95%9C%E5%83%8F%E6%96%87%E4%BB%B6"><span class="toc-text">烧录镜像文件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E4%B8%8E%E6%A0%91%E8%8E%93%E6%B4%BE%E8%BF%9E%E6%8E%A5"><span class="toc-text">配置与树莓派连接</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%A0%91%E8%8E%93%E6%B4%BE%E9%9D%99%E6%80%81IP"><span class="toc-text">配置树莓派静态IP</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ssh%E8%BF%9E%E6%8E%A5%E6%A0%91%E8%8E%93%E6%B4%BE"><span class="toc-text">ssh连接树莓派</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8UI%EF%BC%88%E5%B8%A6desktop%EF%BC%89"><span class="toc-text">使用UI（带desktop）</span></a></li></ol>
       
     </div>
   </div>
@@ -531,12 +558,12 @@
       </a>
       <div class="share-content hidden">
         
-          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + Node.js%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%20NVM + '&url=' + http%3A%2F%2Flkzc19.github.io%2F2023%2F10%2F17%2FNode.js%25E7%2589%2588%25E6%259C%25AC%25E7%25AE%25A1%25E7%2590%2586%25E5%25B7%25A5%25E5%2585%25B7-NVM%2F + '" target="_blank" title="Twitter">
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E3%80%90%E6%A0%91%E8%8E%93%E6%B4%BE%E3%80%91%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85 + '&url=' + http%3A%2F%2Flkzc19.github.io%2F2023%2F10%2F22%2F%25E3%2580%2590%25E6%25A0%2591%25E8%258E%2593%25E6%25B4%25BE%25E3%2580%2591%25E7%25B3%25BB%25E7%25BB%259F%25E5%25AE%2589%25E8%25A3%2585%2F + '" target="_blank" title="Twitter">
             <i class="iconfont icon-twitter"></i>
           </a>
         
         
-          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://lkzc19.github.io/2023/10/17/Node.js%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7-NVM/" target="_blank" title="Facebook">
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://lkzc19.github.io/2023/10/22/%E3%80%90%E6%A0%91%E8%8E%93%E6%B4%BE%E3%80%91%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/" target="_blank" title="Facebook">
             <i class="iconfont icon-facebooksquare"></i>
           </a>
         
