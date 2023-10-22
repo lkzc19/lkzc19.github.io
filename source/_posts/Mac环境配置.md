@@ -1,7 +1,7 @@
 ---
 title: Mac环境配置
 date: 2023-07-09 20:18:24
-tags: mac
+tags: Mac
 ---
 
 # 0 前言
