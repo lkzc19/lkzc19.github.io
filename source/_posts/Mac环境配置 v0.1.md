@@ -1,5 +1,5 @@
 ---
-title: Mac环境配置
+title: Mac环境配置 v0.1
 date: 2023-07-09 20:18:24
 tags: Mac
 ---
