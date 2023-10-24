@@ -99,7 +99,10 @@ export HOMEBREW_GITHUB_API_TOKEN=xxx
 配置文件以上传至[github](https://github.com/lkzc19/zmdot)
 
 ---
-关于别名参考[dotfiles](https://github.com/paulirish/dotfiles/blob/main/.aliases)，该仓库还包含了其他许多配置。
+参考资料
+
+- [dotfiles](https://github.com/paulirish/dotfiles/blob/main/.aliases)
+
 
 
 
