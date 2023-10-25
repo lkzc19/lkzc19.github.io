@@ -155,7 +155,7 @@
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime mr-10" title="更新时间"></i>
-          2023-10-25 23:20:37
+          2023-10-26 01:04:07
         </span>
         
               <span class="post-tags">
@@ -179,7 +179,29 @@
 <p>zbin 仓库中还有Windows的脚本，计划后续将各个平台，各种用途的脚本都加入到这个仓库中，用不同的分支管理起来。</p>
 <p>zmdot 仓库只有Mac的环境配置，计划之后把这个仓库重命名为 zdot 与 zbin 一样加入其他系统的配置，且把其他软件的配置也保存起来。</p>
 <p>这样切换设备时，就可以快速的配置新的设备。最好写一个脚本，可以一键配置新设备。</p>
-<h1 id="zmdot"><a href="#zmdot" class="headerlink" title="zmdot"></a>zmdot</h1>
+<h1 id="zmdot"><a href="#zmdot" class="headerlink" title="zmdot"></a>zmdot</h1><h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── .zshrc</span><br><span class="line">├── .vim</span><br><span class="line">│   └── vimrc</span><br><span class="line">└── profile.d</span><br><span class="line">    ├── alias.d</span><br><span class="line">    │   ├── custom.sh <span class="comment"># 自己或者别人写的如 Jar包 启动别名</span></span><br><span class="line">    │   └── third.sh  <span class="comment"># 第三方软件 如redis启动 配置的别名</span></span><br><span class="line">    ├── omz.sh <span class="comment"># oh-my-zsh.sh 的配置</span></span><br><span class="line">    ├── zalias.sh <span class="comment"># 自定义别名主配置</span></span><br><span class="line">    ├── zconf.sh <span class="comment"># 一些配置 如history命令设置显示时间</span></span><br><span class="line">    ├── zenv.sh  <span class="comment"># 环境变量配置</span></span><br><span class="line">    └── zfunc.sh <span class="comment"># 一些常用的命令组合</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="zshrc-amp-profile-d"><a href="#zshrc-amp-profile-d" class="headerlink" title=".zshrc &amp; profile.d"></a>.zshrc &amp; profile.d</h2><p>模仿 CentOS 的配置，在 profile.d 目录下创建编写配置脚本，在 .zshrc 中遍历读取 profile.d 目录下的文件。</p>
+<p>且读取的逻辑是直接从 CentOS 中拷贝过来的。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> ~/profile.d/*.sh ; <span class="keyword">do</span></span><br><span class="line">  <span class="keyword">if</span> [ -r <span class="string">&quot;<span class="variable">$i</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$&#123;-#*i&#125;</span>&quot;</span> != <span class="string">&quot;$-&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">      . <span class="string">&quot;<span class="variable">$i</span>&quot;</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      . <span class="string">&quot;<span class="variable">$i</span>&quot;</span> &gt;/dev/null 2&gt;&amp;1</span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="zalias-sh-amp-zfunc-sh"><a href="#zalias-sh-amp-zfunc-sh" class="headerlink" title="zalias.sh &amp; zfunc.sh"></a>zalias.sh &amp; zfunc.sh</h2><p>这两个文件参考 <a target="_blank" rel="noopener" href="https://github.com/paulirish/dotfiles/blob/main/.aliases">dotfiles</a> 。</p>
+<p>别名配置还另外起了两个别名文件放在 alias.d 目录中，本来是使用与读 profile.d 一样的方式，但觉得就两个文件没有必要，直接使用 source 命令读数据，还更简短一些。</p>
+<p>除了常用的别名，还有在终端使用 vscode 或者 sublime 打开文件，弄成了与 <code>open .</code> 一样的效果。打开文件，不用在目录里慢慢找了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">alias</span> code=<span class="string">&#x27;/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code&#x27;</span></span><br><span class="line"><span class="built_in">alias</span> text=<span class="string">&quot;/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>Java的版本切换，也用到别名，但是我将这部分内容写在了 zenv.sh 中。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># JAVA</span></span><br><span class="line">JAVA_HOME_8=<span class="string">&quot;/Library/Java/JavaVirtualMachines/jdk1.8.0_341.jdk/Contents/Home&quot;</span></span><br><span class="line">JAVA_HOME_11=<span class="string">&quot;/Library/Java/JavaVirtualMachines/jdk-11.0.14.jdk/Contents/Home&quot;</span></span><br><span class="line"></span><br><span class="line">JAVA_HOME=<span class="variable">$JAVA_HOME_8</span></span><br><span class="line">PATH=<span class="variable">$PATH</span>:<span class="variable">$JAVA_HOME</span>/bin</span><br><span class="line"><span class="built_in">export</span> JAVA_HOME</span><br><span class="line"><span class="built_in">export</span> PATH</span><br><span class="line"><span class="comment"># 用于切换JDK版本</span></span><br><span class="line"><span class="built_in">alias</span> jdk8=<span class="string">&quot;export JAVA_HOME=<span class="variable">$JAVA_HOME_8</span>&quot;</span></span><br><span class="line"><span class="built_in">alias</span> jdk11=<span class="string">&quot;export JAVA_HOME=<span class="variable">$JAVA_HOME_11</span>&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>我理解的写 function 和写别名的效果差不多，写多行或者是逻辑稍微复杂一点，用 function 就更合适，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看进程时 过滤掉本条命令的进程</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">pg</span></span>() &#123;</span><br><span class="line">	ps -ef | grep -v <span class="string">&quot;grep&quot;</span> | grep <span class="string">&quot;<span class="variable">$@</span>&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment"># 这条直接使用 别名 的效果是一样的</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="杂项"><a href="#杂项" class="headerlink" title="杂项"></a>杂项</h2><p>其他的则是某些软件的配置文件，如omz.sh，也移动到 profile.d 目录中了.</p>
+<p>还有一个文件没有写出来 ztoken.sh 存放各种 token 等敏感数据，配合脚本使用(因为这些放到了Git仓库上了)。</p>
+<p>未来会将其他软件的配置文件倒出，也保存在这个仓库中。</p>
+<h1 id="zbin"><a href="#zbin" class="headerlink" title="zbin"></a>zbin</h1><p>zbin 上有两条主要分支 Mac&#x2F;Windows，脚本的主要逻辑还是用 python 写的，但为了调用方便，就用各个系统的脚本语言封装了一层方便调用。</p>
+<p>(完)</p>
+
       </div>
       
         <div class="prev-or-next">
@@ -194,7 +216,7 @@
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime mr-10" title="更新时间"></i>
-              2023-10-25 23:20:37
+              2023-10-26 01:04:07
             </span>
             
                   <span class="post-tags">
@@ -223,7 +245,7 @@
     <div class="title">目录</div>
     <div class="catalog-content">
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#zmdot"><span class="toc-text">zmdot</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#zmdot"><span class="toc-text">zmdot</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="toc-text">目录结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#zshrc-amp-profile-d"><span class="toc-text">.zshrc &amp; profile.d</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#zalias-sh-amp-zfunc-sh"><span class="toc-text">zalias.sh &amp; zfunc.sh</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%82%E9%A1%B9"><span class="toc-text">杂项</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#zbin"><span class="toc-text">zbin</span></a></li></ol>
       
     </div>
   </div>
