@@ -106,5 +106,49 @@ function pg() {
 
 zbin 上有两条主要分支 Mac/Windows，脚本的主要逻辑还是用 python 写的，但为了调用方便，就用各个系统的脚本语言封装了一层方便调用。
 
+## 客户端登录脚本(密码写死)
+
+功能性的脚本直接上GitHub上看代码即可。这边记录一些对脚本不同角度的看法。
+
+我在自己电脑上装了很多服务，比如 MySQL、PostgresSQL，除服务还有比如树莓派，这些都需要在终端登录，但是有时候好久登一次，会忘记密码(虽然可以记在一个地方)。而既然这样，就可以写一个脚本专门去登录用的，且都是本地，密码写在脚本上也没事，既可以用作登录，也可作为密码备忘录。
+
+我的登录脚本：
+
+```bash
+#!/bin/bash
+
+# 该脚本用于直接登录各种客户端，且作为密码备忘录(都是本地服务)
+
+if [ $# -lt 1 ]
+then
+  echo Not Enough Argument!
+  exit;
+fi
+
+help="1. pg -> PostgreSQL\n2. my -> MySQL"
+
+if [ "$1" == "help" ]; then
+        echo -e "$help"
+elif [ "$1" == "my" ]; then
+        mysql -u root -p'1111'
+elif [ "$1" == "pg" ]; then
+        PGPASSWORD="111111" psql -h 127.0.0.1 -p 5432 -U lkzc19 -d postgres
+elif [ "$1" == "pi" ]; then
+        # 配置了 SSH 免密登录
+        ssh pi@192.168.31.10
+else
+        echo "参数错误 请参考如下: "
+        echo -e "$help"
+fi
+```
+
+## 敏感数据避免上传到仓库
+
+有两种解决方式
+
+1. 使用环境变量
+
+2. 写配置文件，比如 zbin 就是用 zbin.conf 存放敏感数据，用git将这个文件忽略，上传了一个 zbin.example.conf，其他地方拉代码后，将 zbin 复制一个为 zbin.conf 即可。
+
 (完)
 
