@@ -1,5 +1,5 @@
 ---
-title: Windows Terminal 美化
+title: Windows终端美化
 date: 2023-10-03 12:14:18
 tags: Windows
 ---
