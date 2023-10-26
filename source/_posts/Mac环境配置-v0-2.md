@@ -89,7 +89,7 @@ alias jdk11="export JAVA_HOME=$JAVA_HOME_11"
 ```bash
 # 查看进程时 过滤掉本条命令的进程
 function pg() {
-	ps -ef | grep -v "grep" | grep "$@"
+  ps -ef | grep -v "grep" | grep "$@"
 }
 # 这条直接使用 别名 的效果是一样的
 ```
@@ -128,17 +128,17 @@ fi
 help="1. pg -> PostgreSQL\n2. my -> MySQL"
 
 if [ "$1" == "help" ]; then
-        echo -e "$help"
+  echo -e "$help"
 elif [ "$1" == "my" ]; then
-        mysql -u root -p'1111'
+  mysql -u root -p'1111'
 elif [ "$1" == "pg" ]; then
-        PGPASSWORD="111111" psql -h 127.0.0.1 -p 5432 -U lkzc19 -d postgres
+  PGPASSWORD="111111" psql -h 127.0.0.1 -p 5432 -U lkzc19 -d postgres
 elif [ "$1" == "pi" ]; then
-        # 配置了 SSH 免密登录
-        ssh pi@192.168.31.10
+  # 配置了 SSH 免密登录
+  ssh pi@192.168.31.10
 else
-        echo "参数错误 请参考如下: "
-        echo -e "$help"
+  echo "参数错误 请参考如下: "
+  echo -e "$help"
 fi
 ```
 
