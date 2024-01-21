@@ -101,9 +101,9 @@ ignore:
 theme: oranges
 
 # Deployment
-## Docs: https://hexo.io/docs/one-command-deployment
-deploy:
-  type: 'git'
-  message: update
-  repo: git@github.com:lkzc19/lkzc19.github.io.git
-  branch: gh-pages
+# Docs: https://hexo.io/docs/one-command-deployment
+# deploy:
+#   type: 'git'
+#   message: update
+#   repo: git@github.com:lkzc19/lkzc19.github.io.git
+#   branch: gh-pages
