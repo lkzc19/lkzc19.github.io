@@ -65,7 +65,7 @@ main和release区别是生产环境得有权限的人来弄。
 
 在个人写一些小玩意时，总会去模仿那些工作流(Git Flow)，但仔细看下来，感觉没有必要了，在工作中自然就会形成与工作相吻合的工作流。
 
-适合当前开发的才是最好的，这也是写这篇文章的目的，找一个时候项目的工作流。所以以目前情况来看，我的个人项目(最多也就两三个人)开发工作流应该与 GIthub Flow 和 Trunk-Based Development 相似，利用 GitHub Actions，快速迭代。
+适合当前开发的才是最好的，这也是写这篇文章的目的，找一个时候项目的工作流。所以以目前情况来看，我的个人项目(最多也就两三个人)开发工作流应该与 Github Flow 和 Trunk-Based Development 相似，利用 GitHub Actions，快速迭代。
 
 ---
 画图工具: https://excalidraw.com/
