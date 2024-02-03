@@ -260,13 +260,13 @@ cdns:
 
   # 代码块复制
   clipboard:
-    enable: false
+    enable: true
     url: https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js
 
   # 评论系统
   comments:
     gitalk:
-      enable: false
+      enable: true
       url:
         css: https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css
         js: https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js
