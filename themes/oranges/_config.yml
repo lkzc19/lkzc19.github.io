@@ -45,12 +45,12 @@ comments:
 
   gitalk:
     # https://github.com/gitalk/gitalk#usage查看官方教程
-    enable: false
-    clientID:
-    clientSecret:
-    repo:
-    owner:
-    admin:
+    enable: true
+    clientID: Iv1.668b21e77936b2f6
+    clientSecret: a2beb16ca52723b69549cc953157485c5b740889
+    repo: https://github.com/lkzc19/lkzc19.github.io
+    owner: lkzc19
+    admin: lkzc19
     id: location.pathname
     distractionFreeMode: false
 
