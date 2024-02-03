@@ -46,7 +46,7 @@ comments:
   gitalk:
     # https://github.com/gitalk/gitalk#usage查看官方教程
     enable: true
-    clientID: Iv1.668b21e77936b2f6
+    clientID: 815726
     clientSecret: a2beb16ca52723b69549cc953157485c5b740889
     repo: https://github.com/lkzc19/lkzc19.github.io
     owner: lkzc19
@@ -260,7 +260,7 @@ cdns:
 
   # 代码块复制
   clipboard:
-    enable: false
+    enable: true
     url: https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js
 
   # 评论系统

@@ -21,13 +21,13 @@
 # 网站图标
 favicon:
   enable: true
-  icon: /images/favicon.png
-  touch_icon: /images/favicon.png
+  icon: /images/favicon.jpg
+  touch_icon: /images/favicon.jpg
 
 # 用户头像与昵称
 avatar:
-  author_photo: /images/avatar.png
-  author_nickname: Oranges
+  author_photo: /images/avatar.jpg
+  author_nickname: 十九君
   path: /
 
 # Google 分析
@@ -46,7 +46,7 @@ comments:
   gitalk:
     # https://github.com/gitalk/gitalk#usage查看官方教程
     enable: true
-    clientID: Iv1.668b21e77936b2f6
+    clientID: 815726
     clientSecret: a2beb16ca52723b69549cc953157485c5b740889
     repo: https://github.com/lkzc19/lkzc19.github.io
     owner: lkzc19
@@ -80,32 +80,32 @@ comments:
 # 主题页面导航栏
 navbar:
   -
-    name: Home
+    name: 主页
     enable: true
     path: /
     key: home
   -
-    name: Archives
+    name: 归档
     enable: true
     path: /archives/
     key: archives
   -
-    name: Categories
-    enable: false
+    name: 分类
+    enable: true
     path: /categories/
     key: categories
   -
-    name: Tags
+    name: 标签
     enable: true
     path: /tags/
     key: tags
   -
-    name: Friends
-    enable: true
+    name: 友链
+    enable: false
     path: /friends/
     key: friends
   -
-    name: About
+    name: 关于我
     enable: true
     path: /about/
     key: about
@@ -178,8 +178,8 @@ footer:
     # 一般用来显示根据各种场景需要切换的文本，如时间年份
     # 如：{thisYear} 会被替换为今年年份
     -
-      name: Copyright © {thisYear} Oranges
-      path: https://github.com/zchengsite/hexo-theme-oranges
+      name: Copyright © {thisYear} lkzc19
+      path: https://github.com/lkzc19/lkzc19.github.io
     -
       name: Theme by Oranges | Powered by Hexo
       path: https://github.com/zchengsite/hexo-theme-oranges
