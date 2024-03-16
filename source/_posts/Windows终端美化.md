@@ -78,9 +78,7 @@ oh-my-posh --init --shell pwsh --config <配置文件路径> | Invoke-Expression
 
 如果不满意现有主题配置，可以根据[官网文档](https://ohmyposh.dev/docs/configuration/general)自定义配置。还可以根据自己的需求配置如 Git 相关信息的显示，编程语言的相关显示。如果不想看那么多的文档，可以直接下载一个比较喜欢的主题，以其为基本，改成自己喜欢的。
 
----
-
-参考文章：
+# 参考
 
 - [Windows包管理器Scoop&Winget](https://blog.csdn.net/sorcererr/article/details/131147319)
 - [Oh My Posh：全平台终端提示符个性化工具](https://sspai.com/post/69911)
