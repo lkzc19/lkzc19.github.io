@@ -78,9 +78,3 @@ fi
 将脚本添加到环境变量中。
 
 ![](https://raw.githubusercontent.com/lkzc19/blasphemy.zimg/main/drinkice/2023-09-14-21-51-57.png)
-
-# TODO
-
-- [ ] 官方文档其他操作封装
-- [ ] 身份认证
-- [ ] 二维码
