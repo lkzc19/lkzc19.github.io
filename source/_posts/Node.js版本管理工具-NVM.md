@@ -58,15 +58,8 @@ nvm install <version>
 nvm use <version>
 ```
 
-
-
----
-参考&拓展资料
+# 参考&资料
 
 - [NVM 使用淘宝镜像](https://medium.com/@interjc/nvm-%E4%BD%BF%E7%94%A8%E6%B7%98%E5%AE%9D%E9%95%9C%E5%83%8F-d9d31ac1ee46)
-
-
-拓展资料
-
 - [管理 node 版本，选择 nvm 还是 n？](https://fed.taobao.org/blog/taofed/do71ct/nvm-or-n/?spm=taofed.homepage.header.7.7eab5ac8dDRkRS) (2015)
 - [何为 Io.js](https://zhuanlan.zhihu.com/p/19914290) (2014)
