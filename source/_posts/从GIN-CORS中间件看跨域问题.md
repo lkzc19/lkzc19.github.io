@@ -121,5 +121,3 @@ if c.Request.Method == "OPTIONS" {
 # 0. 参考资料
 
 - [MDN 跨域 相关文档](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)。
-
-
