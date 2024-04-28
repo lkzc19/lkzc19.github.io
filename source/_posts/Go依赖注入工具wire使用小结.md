@@ -110,15 +110,19 @@ type Injector struct {
 func ProvideFooRepo(db common.PgsqlStr) *FooRepo {
 	return &FooRepo{db: db}
 }
+
+var Set = wire.NewSet(
+	ProvideFooRepo,
+)
 ```
 
-但如果像是业务层，需要很多依赖的`struct`还是使用`wire.Struct`方法，通配符`*`注入所有依赖。因为随着业务的发展，或者是开发阶段就可能需要经常改动，就很麻烦。
+如果是使用如`wire.struct`等方法，是需要把要注入的属性暴露出去才可以的。后面的`*`代表注入所有依赖，也可以只传需要注入的依赖。
 
 ```go
 wire.Struct(new(HelloService), "*")
 ```
 
-> 如果某个属性不需要注入，使用标签`wire:"-"`即可。
+> 当使用`*`时，且希望某个属性不要注入，使用标签`wire:"-"`即可。
 
 ## 3. Binding Interfaces VS 其他方式
 
