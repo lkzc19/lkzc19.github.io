@@ -50,18 +50,18 @@ checkErr(err)
 func main() {
   // 初始化 省略
 
-	// Load the policy from DB.
-	e.LoadPolicy()
-	
-	// Check the permission.
-	e.Enforce("alice", "data1", "read")
-	
-	// Modify the policy.
-	// e.AddPolicy(...)
-	// e.RemovePolicy(...)
-	
-	// Save the policy back to DB.
-	e.SavePolicy()
+  // Load the policy from DB.
+  e.LoadPolicy()
+
+  // Check the permission.
+  e.Enforce("alice", "data1", "read")
+
+  // Modify the policy.
+  // e.AddPolicy(...)
+  // e.RemovePolicy(...)
+
+  // Save the policy back to DB.
+  e.SavePolicy()
 }
 ```
 
@@ -73,7 +73,7 @@ func main() {
 
 # 3. 解决方式
 
-## 1. `AddPolicy`->`AddPolicies`
+## 1. `AddPolicy` -> `AddPolicies`
 
 点到源码中看到了一个批量添加的方法`AddPolicies`。
 
@@ -116,7 +116,7 @@ for _, it := range pSet {
 
 既然这样就全部改成新增操作，原先的删除修改后的结果都算好，将相关原先数据全都删除(这样就是批量了)，再将算好数据批量插入。
 
-> 这部分并不在demo中。
+> 这部分不在demo中。
 
 # 4. demo的测试结果
 
