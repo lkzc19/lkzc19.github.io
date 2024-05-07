@@ -45,7 +45,7 @@ go get -u github.com/lkzc19/nlu
 
 # 0. 参考资料
 
-- [如何"优雅"地发布自己的 go module 模块到 pkg.go.dev](https://www.bilibili.com/read/cv21221484/)
+- [如何"优雅"地发布自己的 go module 模块到 pkg.go.dev](https://blog.golang.im/how-to-release-go-module/)
 - [pkg.go.dev about](https://pkg.go.dev/about)
 - [proxy.golang.org](https://proxy.golang.org/)
 - [Github添加许可证到仓库](https://docs.github.com/zh/communities/setting-up-your-project-for-healthy-contributions/adding-a-license-to-a-repository)
