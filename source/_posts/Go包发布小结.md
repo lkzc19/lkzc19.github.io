@@ -38,11 +38,6 @@ go get -u github.com/lkzc19/nlu
 
 并且在[demo](https://github.com/lkzc19/demo/blob/main/goz/langz/internal/pkg_test.go)中使用该依赖。
 
-# 2. 思考
-
-1. 为什么推到github上，使用`go get`就可以出现在`pkg.go.dev`？那gitee可以吗？。
-2. 自建git仓库如何发包及引包？
-
 # 0. 参考资料
 
 - [如何"优雅"地发布自己的 go module 模块到 pkg.go.dev](https://blog.golang.im/how-to-release-go-module/)
