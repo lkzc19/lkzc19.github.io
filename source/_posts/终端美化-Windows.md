@@ -1,5 +1,5 @@
 ---
-title: Windows终端美化
+title: 终端美化-Windows
 date: 2023-10-03 12:14:18
 tags: Windows
 ---
