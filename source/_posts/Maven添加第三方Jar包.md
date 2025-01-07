@@ -52,11 +52,51 @@ groupId、artifactId、version(后续都写为GAV) 即是后续在在pom文件�
 
 ```xml
 <groupId>org.example</groupId>
-<artifactId>pkg</artifactId>
+<artifactId>mm</artifactId>
 <version>1.0-SNAPSHOT</version>
 ```
 
 如果需要补充依赖版本则猜测，或者看客户给的 libs 包中的其他 jar 包来补充。
+
+将创建好的 pom 安装到本地仓库，安装方式与 jar 差不多，将 `-Dpackaging` 参数改为 `pom`。
+
+```bash
+mvn install:install-file -Dfile=/path/to/xx.pom -DgroupId=xyz.lkzc19 -DartifactId=mm -Dversion=1.0-SNAPSHOT -Dpackaging=pom
+```
+
+> 经过测试，依赖包的定位是靠安装指定的 GAV 定位，所以注意安装时的 GAV 与 pom 文件中**依赖(包含 parent)**的 GAV 要保持一致。而安装 jar 包时，可以不用管这个 jar 包定义**本身**的 GAV。
+
+如果在使用 `java -jar` 时出现
+
+- 没有主清单属性
+- NoClassDefFoundError异常
+
+需要如下配置，来添加主类且将依赖也打包进 jar 包，注意替换主类等参数。
+
+```xml
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-shade-plugin</artifactId>
+    <version>3.1.1</version>
+    <configuration>
+    </configuration>
+    <executions>
+        <execution>
+            <phase>package</phase>
+            <goals>
+                <goal>shade</goal>
+            </goals>
+            <configuration>
+                <transformers>
+                    <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                        <mainClass>org.example.Main</mainClass>
+                    </transformer>
+                </transformers>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
+```
 
 # 2. 项目中添加 libs 目录
 
@@ -114,8 +154,6 @@ groupId、artifactId、version(后续都写为GAV) 即是后续在在pom文件�
 
 ![](https://raw.githubusercontent.com/lkzc19/nimg/main/default/6437cf4774618b6cded5ee267737cf19.png)
 
-> 如果是报找不到主类，需要配置插件 `maven-jar-plugin`。
-
 需要要指定类路径：
 
 ```bash
@@ -126,3 +164,71 @@ java -cp "target/pkg-1.0-SNAPSHOT.jar:target/libs/*" org.example.Main
 ```
 
 > 注意加上引号，避免因为通配符出现问题。
+
+有时候指定类路径不是很方便，这时候最好将依赖包也打进 jar 包。上面提到的 `shade` 插件不能满足需求，使用 `assembly` 插件来完成，注意修改主类等参数。
+
+```xml
+<plugin>
+    <artifactId>maven-assembly-plugin</artifactId>
+    <configuration>
+        <archive>
+            <manifest>
+                <mainClass>org.example.Main</mainClass>
+            </manifest>
+            <manifestEntries>
+                <Class-Path>.</Class-Path>
+            </manifestEntries>
+        </archive>
+    </configuration>
+    <executions>
+        <execution>
+            <id>make-assembly</id>
+            <phase>package</phase>
+            <goals>
+                <goal>single</goal>
+            </goals>
+            <configuration>
+                <descriptors>
+                    <descriptor>src/assembly/assembly.xml</descriptor>
+                </descriptors>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
+```
+
+在指定的位置添加配置文件 assembly.xml。
+
+```xml
+<assembly>
+    <id>jar-with-dependencies</id>
+    <formats>
+        <format>jar</format>
+    </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
+    <dependencySets>
+        <!-- 默认的配置 -->
+        <dependencySet>
+            <outputDirectory>/</outputDirectory>
+            <useProjectArtifact>true</useProjectArtifact>
+            <unpack>true</unpack>
+            <scope>runtime</scope>
+        </dependencySet>
+        <!-- 增加scope类型为system的配置 主要增加了scope类型为system的配置；这样在打包的时候，就会把本地jar也打包进去-->
+        <dependencySet>
+            <outputDirectory>/</outputDirectory>
+            <useProjectArtifact>true</useProjectArtifact>
+            <unpack>true</unpack>
+            <scope>system</scope>
+        </dependencySet>
+    </dependencySets>
+</assembly>
+```
+
+打出的带 `jar-with-dependencies` 后缀的 jar 包就可以直接运行。
+
+---
+
+参考：
+
+1. [maven-assembly-plugin打包 scope system 级别文件](https://www.wxyaonline.top/article/7f3653b1-cd96-4ec3-acca-ed3aacf51efc)
