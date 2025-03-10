@@ -150,7 +150,7 @@ reboot
 
 保存后，配置的用户就可以免密的使用`sudo`
 
-## 2.3 配置ssh免密登入
+## 2.4 配置ssh免密登入
 
 之后搭建集群，需要同步集群文件或者其他操作，需要机器之间互相登入，每次输入密码太麻烦，所以配置免密登入。先克隆1台虚拟机。
 
@@ -177,6 +177,21 @@ ssh-copy-id lkzc19@172.16.167.42
 ![](https://raw.githubusercontent.com/lkzc19/nimg/main/lkzc19.github.io/810c7b327b2557cd0bd3ee63fd1498c8.png)
 
 除了其他机器配置免密登入，本级也要配置，因为之后执行脚本是全部机器都会执行，本机也会使用ssh执行脚本。
+
+## 2.5 创建软件放置目录
+
+这算个人习惯。按我公司会在根目录下创建一个目录，修改其所属用户和所属组。
+
+我则一般在`/opt`下创建目录`module`来放各种软件如 hadoop、flink。
+
+```bash
+cd /opt
+sudo mkdir module software
+sudo chown lkzc19:lkzc19 *
+sudo groupmod -n vitamin lkzc19
+```
+
+在一开始初始化系统时创建了`lkzc19`这个用户，但是没有指定组名，所以默认组名与用户名一致。如果想修改组名可以使用`groupmod`命令。
 
 # 0. 参考文档
 
