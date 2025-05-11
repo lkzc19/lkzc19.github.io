@@ -8,7 +8,7 @@ categories: 大数据
 
 大数据学习记录。
 
-基于上篇 [【大数据】虚拟机Fusion初始化系统CentOS9](https://lkzc19.github.io/2025/03/06/%E3%80%90%E5%A4%A7%E6%95%B0%E6%8D%AE%E3%80%91%E8%99%9A%E6%8B%9F%E6%9C%BAFusion%E5%88%9D%E5%A7%8B%E5%8C%96%E7%B3%BB%E7%BB%9FCentOS9/) 的基础上继续操作。
+1. [【大数据】虚拟机Fusion初始化系统CentOS9](https://lkzc19.github.io/2025/03/06/%E3%80%90%E5%A4%A7%E6%95%B0%E6%8D%AE%E3%80%91%E8%99%9A%E6%8B%9F%E6%9C%BAFusion%E5%88%9D%E5%A7%8B%E5%8C%96%E7%B3%BB%E7%BB%9FCentOS9/)
 
 # 1. 软件安装
 
@@ -84,6 +84,7 @@ done
 
 ```bash
 sudo chmod +x ~/bin/xsync
+xsync /opt/module/
 ```
 
 ## 1.3 环境变量配置
@@ -242,7 +243,13 @@ hadoop103
 hadoop104
 ```
 
-## 2.3 启动
+配置完之后将配置目录进行分发。
+
+```bash
+xsync /opt/module/hadoop-3.4.0/etc/hadoop/
+```
+
+## 2.3 启停
 
 在启动之前得先初始化。
 
