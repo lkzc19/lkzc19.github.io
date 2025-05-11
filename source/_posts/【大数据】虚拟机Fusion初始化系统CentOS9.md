@@ -5,7 +5,7 @@ tags:
 - Mac
 - Fusion
 - CentOS
-categories: 墙
+categories: 大数据
 ---
 
 大数据学习记录。

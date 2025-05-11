@@ -6,13 +6,13 @@ tags: Nginx
 
 最近接到一个需求，要将到Nginx的请求体打印出来，做日志收集处理。`echo-nginx-module`模块可以满足需求。
 
-# 环境
+# 1. 环境
 
 - CentOS 9
 - [nginx/1.24.0](http://nginx.org/download/nginx-1.26.2.tar.gz)
 - [echo v0.61](https://github.com/openresty/echo-nginx-module/archive/refs/tags/v0.61.tar.gz)
 
-# 编译安装
+# 2. 编译安装
 
 获取包，相关包也可直接在浏览器下载。
 
@@ -75,7 +75,7 @@ make install
 
 ![](https://raw.githubusercontent.com/lkzc19/nimg/main/lkzc19.github.io/4d454fb872826d8283361745aeb517b5.png)
 
-# 测试echo模块
+# 3. 测试echo模块
 
 nginx 添加如下配置。
 
