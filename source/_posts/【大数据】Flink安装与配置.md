@@ -3,7 +3,8 @@ title: 【大数据】Flink安装与配置
 date: 2025-05-11 15:43:54
 tags: 
 - Flink
-categories: 大数据
+categories: 
+- 大数据
 ---
 
 大数据学习记录。
@@ -13,7 +14,7 @@ categories: 大数据
 
 # 1. 软件安装
 
-官网下载flink
+官网下载flink。
 
 - flink-1.20.0-bin-scala_2.12.tgz
 

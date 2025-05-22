@@ -3,7 +3,8 @@ title: 【大数据】Hadoop安装与配置
 date: 2025-05-10 17:55:56
 tags: 
 - Hadoop
-categories: 大数据
+categories: 
+- 大数据
 ---
 
 大数据学习记录。

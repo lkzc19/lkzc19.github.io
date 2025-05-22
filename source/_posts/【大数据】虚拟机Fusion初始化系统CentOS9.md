@@ -5,7 +5,8 @@ tags:
 - Mac
 - Fusion
 - CentOS
-categories: 大数据
+categories: 
+- 大数据
 ---
 
 大数据学习记录。
