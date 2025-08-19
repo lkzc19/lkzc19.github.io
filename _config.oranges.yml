@@ -40,15 +40,15 @@ gtag:
 
 # 文章评论系统
 comments:
-  enable: false
+  enable: true
   # 目前仅支持gitalk, valine, disqus评论，选择喜欢的一种开启即可
 
   gitalk:
     # https://github.com/gitalk/gitalk#usage查看官方教程
-    enable: true
-    clientID: 815726
-    clientSecret: a2beb16ca52723b69549cc953157485c5b740889
-    repo: https://github.com/lkzc19/lkzc19.github.io
+    enable: false
+    clientID: 
+    clientSecret: 
+    repo: 
     owner: lkzc19
     admin: lkzc19
     id: location.pathname
@@ -57,9 +57,9 @@ comments:
   valine:
     # https://valine.js.org/quickstart.html#%E8%8E%B7%E5%8F%96APP-ID-%E5%92%8C-APP-Key
     # 进入以上网址查看官方教程
-    enable: false
-    appId:
-    appKey:
+    enable: true
+    appId: YNrQ1AcimxuUDegVrAphlmqj-gzGzoHsz
+    appKey: CcZzUWxnV9EcQdwiHOFLo7qW
     placeholder: Welcome!
     avatar: retro
     vempty_display: false
