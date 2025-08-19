@@ -1,7 +1,10 @@
 ---
-title: Nginx安装echo模块
+title: 【Nginx】echo模块安装
 date: 2024-12-18 01:38:27
-tags: Nginx
+tags: 
+- Nginx
+categories: 
+- Nginx
 ---
 
 最近接到一个需求，要将到Nginx的请求体打印出来，做日志收集处理。`echo-nginx-module`模块可以满足需求。
