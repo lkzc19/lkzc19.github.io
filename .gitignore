@@ -6,3 +6,4 @@ public/
 package-lock.json
 
 /.vscode
+/archive
